@@ -12,12 +12,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text(appName)),
-      body: Column(children: [
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: const Text(appName)),
+    body: Column(children: [
 
-      ])
-    );
-  }
+    ])
+  );
 }
