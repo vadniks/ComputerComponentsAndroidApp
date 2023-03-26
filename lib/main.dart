@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'consts.dart';
 import 'widget/homePage.dart';
 
 void main() {
