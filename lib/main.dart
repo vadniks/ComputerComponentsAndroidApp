@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'consts.dart';
 import 'widget/homePage.dart';
 
 void main() {
@@ -12,6 +13,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: appName,
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(useMaterial3: true),
       home: const HomePage(),
