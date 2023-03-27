@@ -7,7 +7,7 @@ class Component {
   final ComponentType type;
   final String description;
   final int cost;
-  final String? image;
+  final String image;
 
   static const idC = 'id',
     titleC = 'title',
@@ -22,7 +22,7 @@ class Component {
     required this.type,
     required this.description,
     required this.cost,
-    this.image
+    required this.image
   });
 
   factory Component.fromJson(Map<String, dynamic> json) => Component(

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../consts.dart';
 import '../model/component.dart';
 
@@ -17,29 +18,44 @@ class _HomePageState extends State<HomePage> {
   String? _userName;
   var _isFetchingOrders = false;
 
+  void _onItemClick(int index) {
+
+  }
+
   Component _makeStubComponent(int index) {
     final type = ComponentType.create(id: index)!;
     return Component(
       title: notSelected,
       type: type,
       description: notSelected,
-      cost: 0
+      cost: 0,
+      image: type.icon
     );
   }
 
   Widget _makeItem(int index) {
     final component = _selected[index] ?? _makeStubComponent(index);
     return ListTile(
-      leading: const SizedBox(width: 50, height: 50,),// TODO load image
+      leading: component.id != null
+        ? null // TODO
+        : SvgPicture.asset(
+          assets + component.image + svgExtension,
+          width: 50,
+          height: 50
+        ),
       title: Text(component.title),
       subtitle: Text(component.type.title),
       trailing: Text(component.cost.toString()),
+      onTap: () => _onItemClick(index),
     );
   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text(appName)),
+    appBar: AppBar(
+      leading: SvgPicture.asset(assets + appIcon + svgExtension),
+      title: const Text(appName),
+    ),
     body: ListView.separated(
       itemBuilder: (context, index) => _makeItem(index),
       separatorBuilder: (context, index) => const Divider(height: 1),
