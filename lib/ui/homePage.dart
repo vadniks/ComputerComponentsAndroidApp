@@ -56,8 +56,18 @@ class _HomePageState extends State<HomePage> {
       leading: SvgPicture.asset(assets + appIcon + svgExtension),
       title: const Text(
         appName,
-        style: TextStyle(fontFamily: 'Wallpoet'),
+        style: TextStyle(fontFamily: appNameFont),
       ),
+      actions: [
+        const IconButton(
+          onPressed: null, // TODO
+          icon: Icon(Icons.info)
+        ),
+        IconButton(
+          onPressed: null, // TODO
+          icon: Icon(_authorized ? Icons.logout : Icons.login)
+        )
+      ],
     ),
     body: ListView.separated(
       itemBuilder: (context, index) => _makeItem(index),
