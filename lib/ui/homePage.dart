@@ -54,7 +54,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       leading: SvgPicture.asset(assets + appIcon + svgExtension),
-      title: const Text(appName),
+      title: const Text(
+        appName,
+        style: TextStyle(fontFamily: 'Wallpoet'),
+      ),
     ),
     body: ListView.separated(
       itemBuilder: (context, index) => _makeItem(index),

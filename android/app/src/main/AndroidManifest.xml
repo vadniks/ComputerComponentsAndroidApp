@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:label="computer_components_shop_app"
+        android:label="Componenta"
         android:name="${applicationName}"
         android:icon="@drawable/pc_icon_dark">
 

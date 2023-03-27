@@ -39,3 +39,8 @@ flutter:
     - assets/pc_ssd.svg
     - assets/hwr_ico.svg
     - assets/qlt_ico.svg
+
+  fonts:
+    - family: Wallpoet
+      fonts:
+        - asset: assets/Wallpoet-Regular.ttf
