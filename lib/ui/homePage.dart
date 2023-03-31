@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../consts.dart';
 import '../model/component.dart';
+import '../util.dart';
+import 'widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,7 +20,13 @@ class _HomePageState extends State<HomePage> {
   String? _userName;
   var _isFetchingOrders = false;
 
-  void _onItemClick(int index) {
+  NavigatorState get _navigator => Navigator.of(context);
+
+  void _onItemClick(int index) async {
+    final result = await _navigator.pushNamed(
+      routeSelect,
+      arguments: _selected[index]
+    );
 
   }
 
@@ -52,26 +60,19 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      leading: SvgPicture.asset(assets + appIcon + svgExtension),
-      title: const Text(
-        appName,
-        style: TextStyle(fontFamily: appNameFont),
+    appBar: makeAppBar(actions: [
+      const IconButton(
+        onPressed: null, // TODO
+        icon: Icon(Icons.info)
       ),
-      actions: [
-        const IconButton(
-          onPressed: null, // TODO
-          icon: Icon(Icons.info)
-        ),
-        IconButton(
-          onPressed: null, // TODO
-          icon: Icon(_authorized ? Icons.logout : Icons.login)
-        )
-      ],
-    ),
+      IconButton(
+        onPressed: null, // TODO
+        icon: Icon(_authorized ? Icons.logout : Icons.login)
+      )
+    ]),
     body: ListView.separated(
       itemBuilder: (context, index) => _makeItem(index),
-      separatorBuilder: (context, index) => const Divider(height: 1),
+      separatorBuilder: (context, index) => divider,
       itemCount: _selected.length
     )
   );
