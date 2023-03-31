@@ -72,7 +72,7 @@ class _SelectPageState extends State<SelectPage> {
     )),
   );
 
-  Future<List<Component>> _fetch() async => [ for (var i = 0; i < 10; i++) Component(
+  Future<List<Component>> _fetch() async => [for (var i = 0; i < 10; i++) Component( // TODO: test only
     title: i.toString(),
     type: ComponentType.values[i % ComponentType.amount],
     description: (i * 10).toString(),
@@ -187,31 +187,17 @@ class _SelectPageState extends State<SelectPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: const Text(
-        appName,
-        style: TextStyle(fontFamily: appNameFont),
+      title: !_isSearching ? const Text(componentsSelection) : makeTextField(
+        controller: _searchController,
+        hint: searchByTitle
       ),
-      actions: [
-        AnimatedContainer(
-          duration: const Duration(milliseconds: 500),
-          child: !_isSearching
-            ? IconButton(
-              onPressed: () => setState(() => _isSearching = true),
-              icon: const Icon(Icons.search)
-            )
-            : makeTextField(
-              controller: _searchController,
-              hint: searchByTitle
-            ),
-        ),
-        AnimatedContainer(
-          duration: const Duration(milliseconds: 500),
-          child: !_isSearching ? null : IconButton(
-            onPressed: () => setState(() => _isSearching = false),
-            icon: const Icon(Icons.close)
+      actions: [AnimatedContainer(
+        duration: const Duration(milliseconds: 500),
+        child: IconButton(
+            onPressed: () => setState(() => _isSearching = !_isSearching),
+            icon: Icon(!_isSearching ? Icons.search : Icons.close)
           )
-        )
-      ]
+      )]
     ),
     body: _hasFetched && _items.isEmpty // TODO: add progressbar
       ? const Center(child: Text(

@@ -9,7 +9,8 @@ const notSelected = 'Not selected',
   submit = 'Submit',
   empty = 'Empty',
   nullString = 'null',
-  searchByTitle = 'Search by title';
+  searchByTitle = 'Search by title',
+  componentsSelection = 'Selection';
 
 const routeHome = '/',
   routeSelect = '/select',
