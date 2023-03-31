@@ -54,22 +54,20 @@ class _SelectPageState extends State<SelectPage> {
     super.dispose();
   }
 
-  Widget _makeItem(Component component, BuildContext context) => Card(
-    child: Material(child: ListTile(
-      onTap: () => _onItemClick(component),
-      leading: component.id == null
-        ? SvgPicture.asset(
-          assets + appIcon + svgExtension,
-          width: 50,
-          height: 50
-        )
-        : null, // TODO
-      title: Text(
-        component.title,
-        overflow: TextOverflow.ellipsis,
-      ),
-      trailing: Text('\$${component.cost}'),
-    )),
+  Widget _makeItem(Component component, BuildContext context) => ListTile(
+    onTap: () => _onItemClick(component),
+    leading: component.id == null
+      ? SvgPicture.asset(
+        assets + appIcon + svgExtension,
+        width: 50,
+        height: 50
+      )
+      : null, // TODO
+    title: Text(
+      component.title,
+      overflow: TextOverflow.ellipsis,
+    ),
+    trailing: Text('\$${component.cost}')
   );
 
   Future<List<Component>> _fetch() async => [for (var i = 0; i < 10; i++) Component( // TODO: test only
@@ -128,8 +126,7 @@ class _SelectPageState extends State<SelectPage> {
     await _loadItems();
   }
 
-  void _onItemClick(Component component) => showModalBottomSheet(
-    constraints: const BoxConstraints(maxWidth: 700),
+  void _onItemClick(Component component) => showModalBottomSheet( // TODO: redesign bottomSheet or create a separate page for displaying component's details
     context: context,
     builder: (builder) => Column(children: [
       Row(
@@ -164,7 +161,7 @@ class _SelectPageState extends State<SelectPage> {
       Expanded(child: Row(children: [
         //component.id == null
           /*?*/ SvgPicture.asset(
-            appIcon,
+            assets + appIcon + svgExtension, // TODO: extract template
             width: 300,
             height: 300
           ),
@@ -199,15 +196,20 @@ class _SelectPageState extends State<SelectPage> {
           )
       )]
     ),
-    body: _hasFetched && _items.isEmpty // TODO: add progressbar
+    body: _hasFetched && _items.isEmpty // TODO: replace progress bar with refresh indicator
       ? const Center(child: Text(
         empty,
         style: TextStyle(fontSize: 18),
       ))
-      : ListView.separated(
-        itemBuilder: (_, index) => _makeItem(_items[index], context),
-        separatorBuilder: (_, index) => divider,
-        itemCount: _items.length
-      ),
+      : RefreshIndicator(
+        onRefresh: () async {},
+        triggerMode: RefreshIndicatorTriggerMode.anywhere,
+        notificationPredicate: (notification) => notification.depth == 0 && !_isSearching,
+        child: ListView.separated(
+          itemBuilder: (_, index) => _makeItem(_items[index], context),
+          separatorBuilder: (_, index) => divider,
+          itemCount: _items.length
+        ),
+      )
   );
 }

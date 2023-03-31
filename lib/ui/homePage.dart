@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _selected = List<Component?>.filled(ComponentType.amount, null);
   final _submitControllers = List.generate(4, (_) => TextEditingController(), growable: false);
-  var _totalCost = 0, _authorized = false;
+  var _totalCost = 0;
   String? _userName;
   var _isFetchingOrders = false;
 
@@ -70,10 +70,10 @@ class _HomePageState extends State<HomePage> {
           onPressed: null, // TODO
           icon: Icon(Icons.info)
         ),
-        IconButton(
-          onPressed: null, // TODO
-          icon: Icon(_authorized ? Icons.logout : Icons.login)
-        )
+        // IconButton(
+        //   onPressed: null, // TODO
+        //   icon: Icon(_authorized ? Icons.logout : Icons.login)
+        // )
       ]
     ),
     body: ListView.separated(
