@@ -2,11 +2,9 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 
 import 'package:flutter_svg/svg.dart';
-
 import '../consts.dart';
 import '../model/component.dart';
 import '../util.dart';
-import 'widgets.dart';
 import 'package:flutter/material.dart';
 
 class SelectPage extends StatefulWidget {
@@ -23,6 +21,7 @@ class _SelectPageState extends State<SelectPage> {
   var _hasFetched = false;
   var _hasSearched = false;
   var _isLeaving = false;
+  var _isSearching = false;
   late final TextEditingController _searchController;
 
   NavigatorState get _navigator => Navigator.of(context);
@@ -31,14 +30,15 @@ class _SelectPageState extends State<SelectPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    final dynamic args = ModalRoute.of(context)!.settings.arguments;
-    if (args == null || args is! Type) {
-      _type = ComponentType.cpu;
-      _isLeaving = true;
-    } else
-      _type = args as ComponentType;
+    // final dynamic args = ModalRoute.of(context)!.settings.arguments;
+    // if (args == null || args is! Type) {
+    //   _type = ComponentType.cpu;
+    //   _isLeaving = true;
+    // } else
+    //   _type = args as ComponentType;
+    _type = ComponentType.cpu;
 
-    if (!_isLeaving) _loadItems(true);
+    if (!_isLeaving) _loadItems();
   }
 
   @override
@@ -59,7 +59,7 @@ class _SelectPageState extends State<SelectPage> {
       onTap: () => _onItemClick(component),
       leading: component.id == null
         ? SvgPicture.asset(
-          appIcon,
+          assets + appIcon + svgExtension,
           width: 50,
           height: 50
         )
@@ -72,11 +72,15 @@ class _SelectPageState extends State<SelectPage> {
     )),
   );
 
-  Future<List<Component>> _fetch() async => [ // TODO
+  Future<List<Component>> _fetch() async => [ for (var i = 0; i < 10; i++) Component(
+    title: i.toString(),
+    type: ComponentType.values[i % ComponentType.amount],
+    description: (i * 10).toString(),
+    cost: i,
+    image: ComponentType.values[i % ComponentType.amount].icon
+  )];
 
-  ];
-
-  Future<void> _loadItems(bool firstTime) async {
+  Future<void> _loadItems() async {
     setState(() => _isFetching = true);
 
     final items = await _fetch();
@@ -121,7 +125,7 @@ class _SelectPageState extends State<SelectPage> {
   Future<void> _refresh() async {
     _resetItemsList();
     setState(() => _hasSearched = false);
-    await _loadItems(true);
+    await _loadItems();
   }
 
   void _onItemClick(Component component) => showModalBottomSheet(
@@ -182,8 +186,34 @@ class _SelectPageState extends State<SelectPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: makeAppBar(),
-    body: _hasFetched && _items.isEmpty
+    appBar: AppBar(
+      title: const Text(
+        appName,
+        style: TextStyle(fontFamily: appNameFont),
+      ),
+      actions: [
+        AnimatedContainer(
+          duration: const Duration(milliseconds: 500),
+          child: !_isSearching
+            ? IconButton(
+              onPressed: () => setState(() => _isSearching = true),
+              icon: const Icon(Icons.search)
+            )
+            : makeTextField(
+              controller: _searchController,
+              hint: searchByTitle
+            ),
+        ),
+        AnimatedContainer(
+          duration: const Duration(milliseconds: 500),
+          child: !_isSearching ? null : IconButton(
+            onPressed: () => setState(() => _isSearching = false),
+            icon: const Icon(Icons.close)
+          )
+        )
+      ]
+    ),
+    body: _hasFetched && _items.isEmpty // TODO: add progressbar
       ? const Center(child: Text(
         empty,
         style: TextStyle(fontSize: 18),

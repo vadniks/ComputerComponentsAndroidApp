@@ -8,7 +8,8 @@ const appName = 'Componenta',
 const notSelected = 'Not selected',
   submit = 'Submit',
   empty = 'Empty',
-  nullString = 'null';
+  nullString = 'null',
+  searchByTitle = 'Search by title';
 
 const routeHome = '/',
   routeSelect = '/select',

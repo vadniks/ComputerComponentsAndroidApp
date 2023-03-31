@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../consts.dart';
 import '../model/component.dart';
 import '../util.dart';
-import 'widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -60,16 +59,23 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: makeAppBar(actions: [
-      const IconButton(
-        onPressed: null, // TODO
-        icon: Icon(Icons.info)
+    appBar: AppBar(
+      leading: SvgPicture.asset(assets + appIcon + svgExtension),
+      title: const Text(
+        appName,
+        style: TextStyle(fontFamily: appNameFont),
       ),
-      IconButton(
-        onPressed: null, // TODO
-        icon: Icon(_authorized ? Icons.logout : Icons.login)
-      )
-    ]),
+      actions: [
+        const IconButton(
+          onPressed: null, // TODO
+          icon: Icon(Icons.info)
+        ),
+        IconButton(
+          onPressed: null, // TODO
+          icon: Icon(_authorized ? Icons.logout : Icons.login)
+        )
+      ]
+    ),
     body: ListView.separated(
       itemBuilder: (context, index) => _makeItem(index),
       separatorBuilder: (context, index) => divider,
