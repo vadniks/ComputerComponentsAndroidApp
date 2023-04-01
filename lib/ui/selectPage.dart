@@ -82,6 +82,7 @@ class _SelectPageState extends State<SelectPage> {
   Future<void> _loadItems() async {
     setState(() => _isFetching = true);
 
+    await Future.delayed(const Duration(seconds: 1)); // TODO: test only
     final items = await _fetch();
     if (items.isNotEmpty) setState(() => _items.addAll(items));
 
@@ -221,15 +222,18 @@ class _SelectPageState extends State<SelectPage> {
         empty,
         style: TextStyle(fontSize: 18),
       ))
-      : RefreshIndicator(
-        onRefresh: () async {},
-        triggerMode: RefreshIndicatorTriggerMode.anywhere,
-        notificationPredicate: (notification) => notification.depth == 0 && !_isSearching,
-        child: ListView.separated(
-          itemBuilder: (_, index) => _makeItem(_items[index], context),
-          separatorBuilder: (_, index) => divider,
-          itemCount: _items.length
-        ),
-      )
+      : Column(children: [
+        if (_isFetching || _isSearching) const LinearProgressIndicator(),
+        Expanded(child: RefreshIndicator(
+          onRefresh: () async {},
+          triggerMode: RefreshIndicatorTriggerMode.anywhere,
+          notificationPredicate: (notification) => notification.depth == 0 && !_isSearching,
+          child: ListView.separated(
+            itemBuilder: (_, index) => _makeItem(_items[index], context),
+            separatorBuilder: (_, index) => divider,
+            itemCount: _items.length
+          ),
+        ))
+      ])
   );
 }
