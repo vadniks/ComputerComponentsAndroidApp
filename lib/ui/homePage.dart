@@ -22,11 +22,11 @@ class _HomePageState extends State<HomePage> {
   NavigatorState get _navigator => Navigator.of(context);
 
   void _onItemClick(int index) async {
-    final result = await _navigator.pushNamed(
+    final component = await _navigator.pushNamed(
       routeSelect,
       arguments: ComponentType.values[index]
     );
-
+    setState(() => _selected[index] = component != null && component is Component ? component : null);
   }
 
   Component _makeStubComponent(int index) {

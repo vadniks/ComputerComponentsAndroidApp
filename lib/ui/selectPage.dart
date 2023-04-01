@@ -142,7 +142,7 @@ class _SelectPageState extends State<SelectPage> {
             child: Text(component.title)
           ),
           trailing: IconButton(
-            onPressed: () {}, // TODO
+            onPressed: () => _navigator..pop()..pop(component),
             icon: const Icon(Icons.done),
           ),
         ),
