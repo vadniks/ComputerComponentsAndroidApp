@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../consts.dart';
 import '../model/component.dart';
 import '../util.dart';
-import 'widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

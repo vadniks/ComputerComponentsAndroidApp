@@ -7,8 +7,6 @@ import '../model/component.dart';
 import '../util.dart';
 import 'package:flutter/material.dart';
 
-import 'widgets.dart';
-
 class SelectPage extends StatefulWidget {
   const SelectPage({super.key});
 
@@ -128,14 +126,27 @@ class _SelectPageState extends State<SelectPage> {
     await _loadItems();
   }
 
-  void _onItemClick(Component component) => showModalBottomSheet( // TODO: redesign bottomSheet or create a separate page for displaying component's details
+  void _onItemClick(Component component) => showModalBottomSheet(
     context: context,
     builder: (builder) => SingleChildScrollView(child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ListTile(
-          leading: Text(''),
-
+          leading: const Text(viewDetails),
+          trailing: IconButton(
+            onPressed: () {}, // TODO
+            icon: const Icon(Icons.done),
+          ),
+        ),
+        divider,
+        SingleChildScrollView(child: Text(component.title)),
+        ListTile(
+          leading: Text(component.type.title),
+          trailing: Text('${component.cost}\$'),
+        ),
+        Text(
+          component.description,
+          textAlign: TextAlign.justify,
         )
       ]
     ))

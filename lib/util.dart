@@ -35,6 +35,11 @@ makeTextField({
   ),
 );
 
+const appNameWidget = Text(
+  appName,
+  style: TextStyle(fontFamily: appNameFont),
+);
+
 extension NullableAdditionals on String?
 { String get value => this ?? nullString; }
 
