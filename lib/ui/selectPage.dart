@@ -133,7 +133,7 @@ class _SelectPageState extends State<SelectPage> {
       minWidth: _screenSize.width,
       minHeight: _screenSize.height
     ),
-    builder: (builder) => SingleChildScrollView(child: Column(
+    builder: (builder) => Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ListTile(
@@ -164,24 +164,27 @@ class _SelectPageState extends State<SelectPage> {
                 icon: Icon(Icons.image)
               )
             ]),
-            SizedBox(
-              width: _screenSize.width,
-              height: _screenSize.height * 0.5,
-              child: TabBarView(children: [
-                ListTile(subtitle: Text(
-                  component.description,
-                  textAlign: TextAlign.justify,
-                )),
-                SvgPicture.asset( // TODO: test only
-                  assets + component.image + svgExtension,
-                  fit: BoxFit.scaleDown
-                )
-              ])
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: SizedBox(
+                width: _screenSize.width,
+                height: _screenSize.height * 0.3,
+                child: TabBarView(children: [
+                  ListTile(subtitle: Text(
+                    component.description,
+                    textAlign: TextAlign.justify,
+                  )),
+                  SvgPicture.asset( // TODO: test only
+                    assets + component.image + svgExtension,
+                    fit: BoxFit.scaleDown
+                  )
+                ])
+              ),
             )
           ])
         )
       ]
-    ))
+    )
   );
 
   @override
