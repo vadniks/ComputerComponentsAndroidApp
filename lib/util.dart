@@ -52,7 +52,5 @@ extension Additionals on String {
   String get beforeLast => substring(0, length - 1);
 }
 
-extension Additions on int {
-
-  String get withDollarSign => '$this\$';
-}
+extension Additions on int
+{ String get withDollarSign => '$this\$'; }

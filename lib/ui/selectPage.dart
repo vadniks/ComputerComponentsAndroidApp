@@ -26,6 +26,8 @@ class _SelectPageState extends State<SelectPage> {
 
   NavigatorState get _navigator => Navigator.of(context);
 
+  Size get _screenSize => MediaQuery.of(context).size;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -159,19 +161,16 @@ class _SelectPageState extends State<SelectPage> {
               )
             ]),
             SizedBox(
-              width: double.maxFinite,
-              height: double.maxFinite,
+              width: _screenSize.width,
+              height: _screenSize.height * 0.75,
               child: TabBarView(children: [
                 ListTile(subtitle: Text(
                   component.description,
                   textAlign: TextAlign.justify,
                 )),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: SvgPicture.asset( // TODO: test only
-                    assets + component.image + svgExtension,
-                    fit: BoxFit.scaleDown,
-                  )
+                SvgPicture.asset( // TODO: test only
+                  assets + component.image + svgExtension,
+                  fit: BoxFit.scaleDown,
                 )
               ])
             )
