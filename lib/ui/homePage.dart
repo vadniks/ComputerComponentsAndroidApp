@@ -63,9 +63,9 @@ class _HomePageState extends State<HomePage> {
       leading: SvgPicture.asset(assets + appIcon + svgExtension),
       title: appNameWidget,
       actions: [
-        const IconButton(
-          onPressed: null, // TODO
-          icon: Icon(Icons.info)
+        IconButton(
+          onPressed: () => _navigator.pushNamed(routeAbout),
+          icon: const Icon(Icons.info)
         ),
         // IconButton(
         //   onPressed: null, // TODO

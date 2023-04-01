@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'consts.dart';
+import 'ui/aboutPage.dart';
 import 'ui/homePage.dart';
 import 'ui/selectPage.dart';
 
@@ -17,7 +18,8 @@ class App extends StatelessWidget {
     theme: ThemeData.dark(useMaterial3: true),
     home: const HomePage(),
     routes: {
-      routeSelect: (context) => const SelectPage()
+      routeSelect: (context) => const SelectPage(),
+      routeAbout: (context) => const AboutPage()
     }
   );
 }
