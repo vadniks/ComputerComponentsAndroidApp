@@ -38,25 +38,30 @@ class AboutPage extends StatelessWidget {
         ]
       ),
     ),
-    body: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        const ListTile(title: Text(
-          aboutText,
-          textAlign: TextAlign.justify,
-        )),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _makeIcon('hwr_ico', context),
-            _makeIcon('qlt_ico', context),
-          ]
-        ),
-        _withPadding(const Text(
-          copyright,
-          style: TextStyle(fontSize: 14) // TODO: extract default subtitle font style
-        ))
-      ]
+    body: SingleChildScrollView(child: SizedBox(
+      width: _screenSize(context).width,
+      height: _screenSize(context).height * 0.9,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const ListTile(title: Text(
+            aboutText,
+            textAlign: TextAlign.justify,
+          )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _makeIcon('hwr_ico', context),
+              _makeIcon('qlt_ico', context),
+            ]
+          ),
+          _withPadding(const Text(
+            copyright,
+            style: TextStyle(fontSize: 14) // TODO: extract default subtitle font style
+          ))
+        ]
+      )),
     )
   );
 }
