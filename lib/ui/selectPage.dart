@@ -204,7 +204,8 @@ class _SelectPageState extends State<SelectPage> {
         )
         : makeTextField(
           controller: _searchController,
-          hint: searchByTitle
+          hint: searchByTitle,
+          autofocus: true
         ),
       actions: [
         if (!_isSearching) IconButton(
@@ -223,7 +224,7 @@ class _SelectPageState extends State<SelectPage> {
         style: TextStyle(fontSize: 18),
       ))
       : Column(children: [
-        if (_isFetching || _isSearching) const LinearProgressIndicator(),
+        if (_isFetching) const LinearProgressIndicator(),
         Expanded(child: RefreshIndicator(
           onRefresh: () async {},
           triggerMode: RefreshIndicatorTriggerMode.anywhere,

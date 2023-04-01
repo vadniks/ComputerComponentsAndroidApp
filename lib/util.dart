@@ -13,10 +13,12 @@ makeTextField({
   required String hint,
   bool isNumeric = false,
   bool isPassword = false,
-  bool isItalic = false
+  bool isItalic = false,
+  autofocus = false
 }) => SizedBox(
   width: 500,
   child: TextFormField(
+    autofocus: autofocus,
     keyboardType: !isNumeric ? TextInputType.text : TextInputType.number,
     obscureText: isPassword,
     maxLines: 1,
