@@ -131,22 +131,24 @@ class _SelectPageState extends State<SelectPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ListTile(
-          leading: const Text(viewDetails),
+          leading: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Text(component.title)
+          ),
           trailing: IconButton(
             onPressed: () {}, // TODO
             icon: const Icon(Icons.done),
           ),
         ),
         divider,
-        SingleChildScrollView(child: Text(component.title)),
         ListTile(
           leading: Text(component.type.title),
           trailing: Text(component.cost.withDollarSign),
         ),
-        Text(
+        ListTile(subtitle: Text(
           component.description,
           textAlign: TextAlign.justify,
-        )
+        ))
       ]
     ))
   );
@@ -157,11 +159,11 @@ class _SelectPageState extends State<SelectPage> {
       title: !_isSearching
         ? Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             appNameWidget,
             Text(
-              componentsSelection,
-              style: TextStyle(fontSize: 14),
+              _type.title + selection,
+              style: const TextStyle(fontSize: 14),
             )
           ]
         )
