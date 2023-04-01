@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   void _onItemClick(int index) async {
     final result = await _navigator.pushNamed(
       routeSelect,
-      arguments: _selected[index]
+      arguments: ComponentType.values[index]
     );
 
   }
@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
         ),
       title: Text(component.title),
       subtitle: Text(component.type.title),
-      trailing: Text(component.cost.toString()),
+      trailing: Text(component.cost.withDollarSign),
       onTap: () => _onItemClick(index),
     );
   }

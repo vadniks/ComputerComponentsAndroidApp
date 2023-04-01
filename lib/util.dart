@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-
 import 'consts.dart';
 
 dynamic getArgs(BuildContext context) => ModalRoute.of(context)!.settings.arguments;
@@ -51,4 +50,9 @@ extension Additionals on String {
   Uri get uri => Uri.parse(this);
 
   String get beforeLast => substring(0, length - 1);
+}
+
+extension Additions on int {
+
+  String get withDollarSign => '$this\$';
 }

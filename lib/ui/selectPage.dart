@@ -30,13 +30,12 @@ class _SelectPageState extends State<SelectPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    // final dynamic args = ModalRoute.of(context)!.settings.arguments;
-    // if (args == null || args is! Type) {
-    //   _type = ComponentType.cpu;
-    //   _isLeaving = true;
-    // } else
-    //   _type = args as ComponentType;
-    _type = ComponentType.cpu;
+    final dynamic args = ModalRoute.of(context)!.settings.arguments;
+    if (args == null || args is! ComponentType) {
+      _type = ComponentType.cpu;
+      _isLeaving = true;
+    } else
+      _type = args;
 
     if (!_isLeaving) _loadItems();
   }
@@ -58,7 +57,7 @@ class _SelectPageState extends State<SelectPage> {
     onTap: () => _onItemClick(component),
     leading: component.id == null
       ? SvgPicture.asset(
-        assets + appIcon + svgExtension,
+        assets + component.image + svgExtension,
         width: 50,
         height: 50
       )
@@ -67,15 +66,15 @@ class _SelectPageState extends State<SelectPage> {
       component.title,
       overflow: TextOverflow.ellipsis,
     ),
-    trailing: Text('\$${component.cost}')
+    trailing: Text(component.cost.withDollarSign)
   );
 
   Future<List<Component>> _fetch() async => [for (var i = 0; i < 10; i++) Component( // TODO: test only
-    title: i.toString(),
-    type: ComponentType.values[i % ComponentType.amount],
-    description: (i * 10).toString(),
+    title: '${_type.title} $i',
+    type: _type,
+    description: lorem,
     cost: i,
-    image: ComponentType.values[i % ComponentType.amount].icon
+    image: _type.icon
   )];
 
   Future<void> _loadItems() async {
@@ -126,7 +125,7 @@ class _SelectPageState extends State<SelectPage> {
     await _loadItems();
   }
 
-  void _onItemClick(Component component) => showModalBottomSheet(
+  void _onItemClick(Component component) => showModalBottomSheet( // TODO: add tabBar and display description in one tab and image in another
     context: context,
     builder: (builder) => SingleChildScrollView(child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -142,7 +141,7 @@ class _SelectPageState extends State<SelectPage> {
         SingleChildScrollView(child: Text(component.title)),
         ListTile(
           leading: Text(component.type.title),
-          trailing: Text('${component.cost}\$'),
+          trailing: Text(component.cost.withDollarSign),
         ),
         Text(
           component.description,
