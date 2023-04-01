@@ -11,7 +11,9 @@ const notSelected = 'Not selected',
   nullString = 'null',
   searchByTitle = 'Search by title',
   selection = ' selection',
-  viewDetails = 'View details';
+  viewDetails = 'View details',
+  description = 'Description',
+  image = 'Image';
 
 const routeHome = '/',
   routeSelect = '/select',

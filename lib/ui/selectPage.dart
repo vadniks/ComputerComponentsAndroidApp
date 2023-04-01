@@ -125,7 +125,7 @@ class _SelectPageState extends State<SelectPage> {
     await _loadItems();
   }
 
-  void _onItemClick(Component component) => showModalBottomSheet( // TODO: add tabBar and display description in one tab and image in another
+  void _onItemClick(Component component) => showModalBottomSheet(
     context: context,
     builder: (builder) => SingleChildScrollView(child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -149,8 +149,14 @@ class _SelectPageState extends State<SelectPage> {
           length: 2,
           child: Column(children: [
             const TabBar(tabs: [
-              Tab(text: 'a'),
-              Tab(text: 'b')
+              Tab(
+                text: description,
+                icon: Icon(Icons.description),
+              ),
+              Tab(
+                text: image,
+                icon: Icon(Icons.image)
+              )
             ]),
             SizedBox(
               width: double.maxFinite,
@@ -160,8 +166,14 @@ class _SelectPageState extends State<SelectPage> {
                   component.description,
                   textAlign: TextAlign.justify,
                 )),
-                const Text('BB')
-              ]),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: SvgPicture.asset( // TODO: test only
+                    assets + component.image + svgExtension,
+                    fit: BoxFit.scaleDown,
+                  )
+                )
+              ])
             )
           ])
         )
