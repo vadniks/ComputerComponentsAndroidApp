@@ -129,6 +129,10 @@ class _SelectPageState extends State<SelectPage> {
 
   void _onItemClick(Component component) => showModalBottomSheet(
     context: context,
+    constraints: BoxConstraints(
+      minWidth: _screenSize.width,
+      minHeight: _screenSize.height
+    ),
     builder: (builder) => SingleChildScrollView(child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -162,7 +166,7 @@ class _SelectPageState extends State<SelectPage> {
             ]),
             SizedBox(
               width: _screenSize.width,
-              height: _screenSize.height * 0.75,
+              height: _screenSize.height * 0.5,
               child: TabBarView(children: [
                 ListTile(subtitle: Text(
                   component.description,
@@ -170,7 +174,7 @@ class _SelectPageState extends State<SelectPage> {
                 )),
                 SvgPicture.asset( // TODO: test only
                   assets + component.image + svgExtension,
-                  fit: BoxFit.scaleDown,
+                  fit: BoxFit.scaleDown
                 )
               ])
             )
