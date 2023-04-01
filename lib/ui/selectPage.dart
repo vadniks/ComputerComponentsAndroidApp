@@ -205,13 +205,16 @@ class _SelectPageState extends State<SelectPage> {
           controller: _searchController,
           hint: searchByTitle
         ),
-      actions: [AnimatedContainer(
-        duration: const Duration(milliseconds: 500),
-        child: IconButton(
-            onPressed: () => setState(() => _isSearching = !_isSearching),
-            icon: Icon(!_isSearching ? Icons.search : Icons.close)
-          )
-      )]
+      actions: [
+        if (!_isSearching) IconButton(
+          onPressed: () => _navigator.pop(null),
+          icon: const Icon(Icons.remove_circle),
+        ),
+        IconButton(
+          onPressed: () => setState(() => _isSearching = !_isSearching),
+          icon: Icon(!_isSearching ? Icons.search : Icons.close)
+        )
+      ]
     ),
     body: _hasFetched && _items.isEmpty // TODO: replace progress bar with refresh indicator
       ? const Center(child: Text(
