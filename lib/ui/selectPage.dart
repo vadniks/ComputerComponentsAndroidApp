@@ -145,10 +145,26 @@ class _SelectPageState extends State<SelectPage> {
           leading: Text(component.type.title),
           trailing: Text(component.cost.withDollarSign),
         ),
-        ListTile(subtitle: Text(
-          component.description,
-          textAlign: TextAlign.justify,
-        ))
+        DefaultTabController(
+          length: 2,
+          child: Column(children: [
+            const TabBar(tabs: [
+              Tab(text: 'a'),
+              Tab(text: 'b')
+            ]),
+            SizedBox(
+              width: double.maxFinite,
+              height: double.maxFinite,
+              child: TabBarView(children: [
+                ListTile(subtitle: Text(
+                  component.description,
+                  textAlign: TextAlign.justify,
+                )),
+                const Text('BB')
+              ]),
+            )
+          ])
+        )
       ]
     ))
   );
