@@ -217,7 +217,7 @@ class _SelectPageState extends State<SelectPage> {
         )
       ]
     ),
-    body: _hasFetched && _items.isEmpty // TODO: replace progress bar with refresh indicator
+    body: _hasFetched && _items.isEmpty
       ? const Center(child: Text(
         empty,
         style: TextStyle(fontSize: 18),
