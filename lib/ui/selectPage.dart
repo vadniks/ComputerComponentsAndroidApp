@@ -7,6 +7,8 @@ import '../model/component.dart';
 import '../util.dart';
 import 'package:flutter/material.dart';
 
+import 'widgets.dart';
+
 class SelectPage extends StatefulWidget {
   const SelectPage({super.key});
 
@@ -128,66 +130,35 @@ class _SelectPageState extends State<SelectPage> {
 
   void _onItemClick(Component component) => showModalBottomSheet( // TODO: redesign bottomSheet or create a separate page for displaying component's details
     context: context,
-    builder: (builder) => Column(children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 5,
-              top: 5,
-              right: 5
-            ),
-            child: Text(
-              component.title,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 20),
-            ),
-          ),
-          TextButton(
-            onPressed: () => _navigator..pop()..pop(component),
-            child: const Text(
-              submit,
-              style: TextStyle(fontSize: 18),
-            )
-          )
-        ]
-      ),
-      const Divider(
-        thickness: 1,
-        height: 1,
-      ),
-      Expanded(child: Row(children: [
-        //component.id == null
-          /*?*/ SvgPicture.asset(
-            assets + appIcon + svgExtension, // TODO: extract template
-            width: 300,
-            height: 300
-          ),
-          //: null, // TODO
-        const VerticalDivider(thickness: 1),
-        RichText(
-          textAlign: TextAlign.justify,
-          text: TextSpan(
-            text: component.description,
-            style: const TextStyle(
-              fontSize: 18,
-              color: Colors.white70
-            )
-          )
+    builder: (builder) => SingleChildScrollView(child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ListTile(
+          leading: Text(''),
+
         )
-      ]))
-    ])
+      ]
+    ))
   );
 
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: !_isSearching ? const Text(componentsSelection) : makeTextField(
-        controller: _searchController,
-        hint: searchByTitle
-      ),
+      title: !_isSearching
+        ? Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            appNameWidget,
+            Text(
+              componentsSelection,
+              style: TextStyle(fontSize: 14),
+            )
+          ]
+        )
+        : makeTextField(
+          controller: _searchController,
+          hint: searchByTitle
+        ),
       actions: [AnimatedContainer(
         duration: const Duration(milliseconds: 500),
         child: IconButton(

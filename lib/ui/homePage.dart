@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../consts.dart';
 import '../model/component.dart';
 import '../util.dart';
+import 'widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -61,10 +62,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       leading: SvgPicture.asset(assets + appIcon + svgExtension),
-      title: const Text(
-        appName,
-        style: TextStyle(fontFamily: appNameFont),
-      ),
+      title: appNameWidget,
       actions: [
         const IconButton(
           onPressed: null, // TODO
