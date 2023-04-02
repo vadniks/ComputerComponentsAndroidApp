@@ -86,13 +86,33 @@ class Net {
       '$baseUrl/history',
       options: _jsonResponseOptions
     );
-    if (!response.successful) return [];
-    return [for (final Map<String, dynamic> i in response.data) Component.fromJson(i)];
+
+    return !response.successful ? [] :
+      [for (final Map<String, dynamic> i in response.data) Component.fromJson(i)];
+
   } on DioError catch (_) { return []; } }
 
   Future<bool> clearHistory() async { try {
     return (await _dio.delete('$baseUrl/history')).successful;
   } on DioError catch (_) { return false; } }
 
+  Future<Component?> fetchComponent(int id) async { try {
+    return await _dio.get(
+      '$baseUrl/component/$id',
+      options: _jsonResponseOptions
+    ).then((response) =>
+      response.successful && response.data != null
+        ? Component.fromJson(response.data)
+        : null
+    );
+  } on DioError catch (_) { return null; } }
 
+  Future<List<Component>> fetchSelected() async { try {
+    final response = await _dio.get('$baseUrl/selected');
+
+    return !response.successful ? [] : [
+      for (final String i in (response.data as String).split(','))
+        (await fetchComponent(int.tryParse(i)!))!
+    ];
+  } on DioError catch (_) { return []; } }
 }
