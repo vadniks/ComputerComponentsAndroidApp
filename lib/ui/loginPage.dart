@@ -2,15 +2,16 @@
 import 'package:flutter/material.dart';
 import '../consts.dart';
 import '../util.dart';
+import '../model/proxies.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginPage extends AbsPage {
+  const LoginPage(super.appSate, {super.key});
 
   @override
   State<StatefulWidget> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends PageState<LoginPage> {
   final _loginController = TextEditingController();
   final _passwordController = TextEditingController();
   var _register = false;

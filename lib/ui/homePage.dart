@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 import '../consts.dart';
 import '../model/component.dart';
 import '../util.dart';
+import '../model/proxies.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePage extends AbsPage {
+  const HomePage(super.appSate, {super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends PageState<HomePage> {
   final _selected = List<Component?>.filled(ComponentType.amount, null);
   final _submitControllers = List.generate(4, (_) => TextEditingController(), growable: false);
   var _totalCost = 0;

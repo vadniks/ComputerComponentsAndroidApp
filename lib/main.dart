@@ -5,11 +5,22 @@ import 'ui/aboutPage.dart';
 import 'ui/homePage.dart';
 import 'ui/selectPage.dart';
 import 'ui/loginPage.dart';
+import 'model/proxies.dart';
 
 void main() => runApp(const App());
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _AppState();
+}
+
+class _AppState extends State<App> implements AppState {
+  var _authorized = false;
+
+  @override
+  bool get authorized => _authorized;
 
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -17,11 +28,11 @@ class App extends StatelessWidget {
     themeMode: ThemeMode.dark,
     debugShowCheckedModeBanner: false,
     theme: ThemeData.dark(useMaterial3: true),
-    home: const HomePage(),
+    home: HomePage(this),
     routes: {
-      routeSelect: (context) => const SelectPage(),
+      routeSelect: (context) => SelectPage(this),
       routeAbout: (context) => const AboutPage(),
-      routeLogin: (context) => const LoginPage()
+      routeLogin: (context) => LoginPage(this)
     }
   );
 }

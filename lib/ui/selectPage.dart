@@ -5,15 +5,16 @@ import '../consts.dart';
 import '../model/component.dart';
 import '../util.dart';
 import 'package:flutter/material.dart';
+import '../model/proxies.dart';
 
-class SelectPage extends StatefulWidget {
-  const SelectPage({super.key});
+class SelectPage extends AbsPage {
+  const SelectPage(super.appSate, {super.key});
 
   @override
   State<StatefulWidget> createState() => _SelectPageState();
 }
 
-class _SelectPageState extends State<SelectPage> {
+class _SelectPageState extends PageState<SelectPage> {
   late final ComponentType _type;
   final List<Component> _items = [];
   var _isFetching = false;
@@ -35,7 +36,7 @@ class _SelectPageState extends State<SelectPage> {
       _type = type;
     } catch (e) {/*ignored*/} }
 
-    final dynamic args = ModalRoute.of(context)!.settings.arguments;
+    final dynamic args = getArgs(context);
     if (args == null || args is! ComponentType) {
       setType(ComponentType.cpu);
       _isLeaving = true;
