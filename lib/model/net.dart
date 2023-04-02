@@ -12,9 +12,9 @@ import 'user.dart';
 
 class Net {
   final AppState appState;
-  final _cookieJar = CookieJar(); // TODO: test only, will be inlined
-  late final _dio = Dio()..interceptors.add(CookieManager(_cookieJar));
+  late final _dio = Dio()..interceptors.add(CookieManager(CookieJar())); // TODO: persist cookie
   static final _jsonOptions = Options(responseType: ResponseType.json);
+  static final _urlencodedOptions = Options(contentType: 'application/x-www-form-urlencoded');
 
   Net(this.appState);
 
@@ -50,7 +50,7 @@ class Net {
         User.nameC : login,
         User.passwordC : password
       },
-      options: Options(contentType: 'application/x-www-form-urlencoded')
+      options: _urlencodedOptions
     ).then((response) => response.successful);
   } on DioError catch (_) { return false; } }
 }
