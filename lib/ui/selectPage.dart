@@ -32,12 +32,16 @@ class _SelectPageState extends State<SelectPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
+    setType(ComponentType type) { try {
+      _type = type;
+    } catch (e) {/*ignored*/} }
+
     final dynamic args = ModalRoute.of(context)!.settings.arguments;
     if (args == null || args is! ComponentType) {
-      _type = ComponentType.cpu;
+      setType(ComponentType.cpu);
       _isLeaving = true;
     } else
-      _type = args;
+      setType(args);
 
     if (!_isLeaving) _loadItems();
   }
@@ -130,11 +134,7 @@ class _SelectPageState extends State<SelectPage> {
 
   void _onItemClick(Component component) => showModalBottomSheet(
     context: context,
-    constraints: BoxConstraints(
-      minWidth: _screenSize.width,
-      minHeight: _screenSize.height
-    ),
-    builder: (builder) => Column(
+    builder: (builder) => SingleChildScrollView(child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ListTile(
@@ -149,7 +149,7 @@ class _SelectPageState extends State<SelectPage> {
         ),
         divider,
         ListTile(
-          leading: Text(component.type.title),
+          title: Text(component.type.title),
           trailing: Text(component.cost.withDollarSign),
         ),
         DefaultTabController(
@@ -185,7 +185,7 @@ class _SelectPageState extends State<SelectPage> {
           ])
         )
       ]
-    )
+    ))
   );
 
   @override
