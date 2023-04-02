@@ -15,8 +15,8 @@ class AboutPage extends StatelessWidget {
       child: widget
   );
 
-  Widget _makeIcon(String icon, BuildContext context) => _withPadding(SvgPicture.asset(
-    assets + icon + svgExtension,
+  Widget _makeIcon(String icon, BuildContext context) => _withPadding(svgImage(
+    icon,
     width: _screenSize(context).width * 0.1,
     height: _screenSize(context).height * 0.1
   ));
@@ -32,7 +32,7 @@ class AboutPage extends StatelessWidget {
           height: 15,
           child: Marquee(
             text: slogan,
-            style: const TextStyle(fontSize: 14),
+            style: subtitleStyle,
             blankSpace: 20,
           )
         )
@@ -56,10 +56,7 @@ class AboutPage extends StatelessWidget {
               _makeIcon('qlt_ico', context),
             ]
           ),
-          _withPadding(const Text(
-            copyright,
-            style: TextStyle(fontSize: 14) // TODO: extract default subtitle font style
-          ))
+          _withPadding(subtitle(copyright))
         ]
       )),
     )

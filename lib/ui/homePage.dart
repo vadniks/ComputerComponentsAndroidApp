@@ -43,13 +43,7 @@ class _HomePageState extends State<HomePage> {
   Widget _makeItem(int index) {
     final component = _selected[index] ?? _makeStubComponent(index);
     return ListTile(
-      leading: component.id != null
-        ? null // TODO
-        : SvgPicture.asset(
-          assets + component.image + svgExtension,
-          width: 50,
-          height: 50
-        ),
+      leading: component.id != null ? null : svgImageDefaultSized(component.image), // TODO
       title: Text(component.title),
       subtitle: Text(component.type.title),
       trailing: Text(component.cost.withDollarSign),
@@ -60,7 +54,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      leading: SvgPicture.asset(assets + appIcon + svgExtension),
+      leading: svgImage(appIcon),
       title: appNameWidget,
       actions: [
         IconButton(

@@ -61,13 +61,7 @@ class _SelectPageState extends State<SelectPage> {
 
   Widget _makeItem(Component component, BuildContext context) => ListTile(
     onTap: () => _onItemClick(component),
-    leading: component.id == null
-      ? SvgPicture.asset(
-        assets + component.image + svgExtension,
-        width: 50,
-        height: 50
-      )
-      : null, // TODO
+    leading: component.id == null ? svgImageDefaultSized(component.image) : null, // TODO
     title: Text(
       component.title,
       overflow: TextOverflow.ellipsis,
@@ -138,7 +132,7 @@ class _SelectPageState extends State<SelectPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ListTile(
-          leading: SingleChildScrollView(
+          title: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Text(component.title)
           ),
@@ -149,7 +143,7 @@ class _SelectPageState extends State<SelectPage> {
         ),
         divider,
         ListTile(
-          title: Text(component.type.title),
+          leading: Text(component.type.title),
           trailing: Text(component.cost.withDollarSign),
         ),
         DefaultTabController(
@@ -175,10 +169,7 @@ class _SelectPageState extends State<SelectPage> {
                     component.description,
                     textAlign: TextAlign.justify,
                   )),
-                  SvgPicture.asset( // TODO: test only
-                    assets + component.image + svgExtension,
-                    fit: BoxFit.scaleDown
-                  )
+                  svgImage(component.image) // TODO: test only
                 ])
               ),
             )

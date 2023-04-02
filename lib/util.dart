@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'consts.dart';
 
 dynamic getArgs(BuildContext context) => ModalRoute.of(context)!.settings.arguments;
@@ -39,6 +40,22 @@ makeTextField({
 const appNameWidget = Text(
   appName,
   style: TextStyle(fontFamily: appNameFont),
+);
+
+const subtitleStyle = TextStyle(fontSize: 14);
+
+Widget subtitle(String text) => Text(text, style: subtitleStyle);
+
+Widget svgImage(String which, {double? width, double? height}) => SvgPicture.asset(
+  assets + which + svgExtension,
+  width: width,
+  height: height,
+);
+
+Widget svgImageDefaultSized(String which) => svgImage(
+  which,
+  width: 50,
+  height: 50
 );
 
 extension NullableAdditionals on String?
