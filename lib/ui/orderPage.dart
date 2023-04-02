@@ -29,6 +29,10 @@ class _OrderPageState extends PageState<OrderPage> {
     trailing: Text(component.cost.withDollarSign),
   );
 
+  void _submit() async {
+
+  }
+
   @override
   Widget build(BuildContext context) => DefaultTabController(
     length: 2,
@@ -51,7 +55,7 @@ class _OrderPageState extends PageState<OrderPage> {
                 style: TextStyle(fontSize: 18),
               ),
               makeTextField(
-                controller: _submitControllers[0],
+                controller: _submitControllers[0], // TODO: clear history button
                 hint: firstName
               ),
               makeTextField(
@@ -68,7 +72,7 @@ class _OrderPageState extends PageState<OrderPage> {
                 hint: address
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: _submit,
                 child: const Text(submit),
               )
             ]

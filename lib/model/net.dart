@@ -13,8 +13,9 @@ import 'user.dart';
 class Net {
   final AppState appState;
   late final _dio = Dio()..interceptors.add(CookieManager(CookieJar())); // TODO: persist cookie
-  static final _jsonOptions = Options(responseType: ResponseType.json);
-  static final _urlencodedOptions = Options(contentType: 'application/x-www-form-urlencoded');
+  static final _jsonResponseOptions = Options(responseType: ResponseType.json);
+  static final _urlencodedContentOptions = Options(contentType: Headers.formUrlEncodedContentType);
+  static final _jsonContentOptions = Options(contentType: Headers.jsonContentType);
 
   Net(this.appState);
 
@@ -36,9 +37,9 @@ class Net {
   Future<List<Component>> fetchComponents(ComponentType type) async { try {
     return await _dio.get(
       '$baseUrl/component/type/${type.id}',
-      options: _jsonOptions
+      options: _jsonResponseOptions
     ).then((response) => response.successful ? [
-      for (final dynamic i in response.data)
+      for (final Map<String, dynamic> i in response.data)
         Component.fromJson(i)
     ] : []);
   } on DioError catch (_) { return <Component>[]; } }
@@ -50,7 +51,7 @@ class Net {
         User.nameC : login,
         User.passwordC : password
       },
-      options: _urlencodedOptions
+      options: _urlencodedContentOptions
     ).then((response) => response.successful);
   } on DioError catch (_) { return false; } }
 
@@ -63,4 +64,35 @@ class Net {
     return await _dio.post('$baseUrl/logout')
       .then((response) => response.successful);
   } on DioError catch (_) { return false; } }
+
+  Future<bool> submit(List<String> texts) async {
+    assert(texts.length == 4);
+    try {
+      return await _dio.post(
+        '$baseUrl/order',
+        data: {
+          'firstName': texts[0],
+          'lastName': texts[1],
+          'phone': int.tryParse(texts[2])!,
+          'address': texts[3]
+        },
+        options: _jsonContentOptions
+      ).then((response) => response.successful);
+    } on DioError catch (_) { return false; }
+  }
+
+  Future<List<Component>> fetchHistory() async { try {
+    final response = await _dio.get(
+      '$baseUrl/history',
+      options: _jsonResponseOptions
+    );
+    if (!response.successful) return [];
+    return [for (final Map<String, dynamic> i in response.data) Component.fromJson(i)];
+  } on DioError catch (_) { return []; } }
+
+  Future<bool> clearHistory() async { try {
+    return (await _dio.delete('$baseUrl/history')).successful;
+  } on DioError catch (_) { return false; } }
+
+
 }
