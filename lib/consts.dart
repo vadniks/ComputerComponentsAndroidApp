@@ -26,7 +26,8 @@ const notSelected = 'Not selected',
   proceed = 'Proceed',
   emptyString = '',
   successfulText = 'Successful',
-  failedText = 'Failed';
+  failedText = 'Failed',
+  unauthorized = 'Unauthorized';
 
 const slogan = 'Build your own PC with PC Configurator online and free! Choose any components you like and buy them!',
   copyright = 'Copyright (C) 2022-2023 | All rights reserved',

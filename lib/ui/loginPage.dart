@@ -23,7 +23,7 @@ class _LoginPageState extends PageState<LoginPage> {
       ? await appSate.net.login(_loginController.text, _passwordController.text)
       : false; // TODO
     if (successful) navigator.pop();
-    if (mounted) showSnackBar(context, successful ? successfulText : failedText);
+    if (mounted) showSnackBar(successful ? successfulText : failedText);
   }
 
   @override

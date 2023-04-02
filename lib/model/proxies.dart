@@ -17,6 +17,11 @@ abstract class PageState<T extends AbsPage> extends State<T> {
 
   @protected
   void updateState() => setState(() {});
+
+  @protected
+  void showSnackBar(String text) => ScaffoldMessenger
+    .of(context)
+    .showSnackBar(SnackBar(content: Text(text)));
 }
 
 /*interface*/ abstract class AppState { Net get net; }

@@ -22,6 +22,11 @@ class _HomePageState extends PageState<HomePage> {
   var _isFetchingOrders = false;
 
   void _onItemClick(int index) async {
+    if (!await appSate.net.authorized) {
+      if (mounted) showSnackBar(unauthorized);
+      return;
+    }
+
     final component = await navigator.pushNamed(
       routeSelect,
       arguments: ComponentType.values[index]
@@ -57,10 +62,7 @@ class _HomePageState extends PageState<HomePage> {
   }
 
   void _logout() async {
-    if (mounted) showSnackBar(
-      context,
-      await appSate.net.logout() ? successfulText : failedText
-    );
+    if (mounted) showSnackBar(await appSate.net.logout() ? successfulText : failedText);
     updateState();
   }
 

@@ -10,10 +10,6 @@ List<Widget> get defaultFooter => const [SizedBox(width: 25, height: 25)];
 
 const Widget divider = Divider(height: 1);
 
-void showSnackBar(BuildContext context, String text) => ScaffoldMessenger
-  .of(context)
-  .showSnackBar(SnackBar(content: Text(text)));
-
 makeTextField({
   required TextEditingController controller,
   required String hint,
