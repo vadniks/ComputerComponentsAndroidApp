@@ -21,11 +21,16 @@ class _HomePageState extends PageState<HomePage> {
   String? _userName;
   var _isFetchingOrders = false;
 
-  void _onItemClick(int index) async {
+  Future<bool> _checkAuthAnNotify() async {
     if (!await appSate.net.authorized) {
       if (mounted) showSnackBar(unauthorized);
-      return;
+      return false;
     }
+    return true;
+  }
+
+  void _onItemClick(int index) async {
+    if (!await _checkAuthAnNotify()) return;
 
     final component = await navigator.pushNamed(
       routeSelect,
@@ -34,7 +39,9 @@ class _HomePageState extends PageState<HomePage> {
     final chosen = component != null && component is Component;
 
     _selected[index] = chosen ? component : null;
+    _totalCost = 0;
     for (final i in _selected) _totalCost += i?.cost ?? 0;
+
     if (mounted) updateState();
   }
 
@@ -70,17 +77,23 @@ class _HomePageState extends PageState<HomePage> {
     updateState();
   }
 
-  void _clear() {
+  void _clear() async {
+    if (!await _checkAuthAnNotify()) return;
+
     for (var i = 0; i < _selected.length; i++)
       _selected[i] = null;
     _totalCost = 0;
+
     updateState();
   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      leading: svgImage(appIcon),
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 10),
+        child: svgImage(appIcon),
+      ),
       title: appBarTexts(makeGreeting(appSate.net.fetchName)),
       actions: [
         IconButton(
