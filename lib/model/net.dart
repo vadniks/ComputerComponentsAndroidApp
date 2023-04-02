@@ -1,8 +1,6 @@
 
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-
 import '../consts.dart';
 import 'proxies.dart';
 import 'package:dio/dio.dart';
