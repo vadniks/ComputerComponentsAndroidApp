@@ -181,22 +181,14 @@ class _SelectPageState extends State<SelectPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: !_isSearching
-        ? Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            appNameWidget,
-            Text(
-              _type.title + selection,
-              style: const TextStyle(fontSize: 14),
-            )
-          ]
-        )
-        : makeTextField(
-          controller: _searchController,
-          hint: searchByTitle,
-          autofocus: true
-        ),
+      title: !_isSearching ? appBarTexts(subtitle(
+        _type.title + selection,
+        overflow: TextOverflow.ellipsis
+      )) : makeTextField(
+        controller: _searchController,
+        hint: searchByTitle,
+        autofocus: true
+      ),
       actions: [
         if (!_isSearching) IconButton(
           onPressed: () => _navigator.pop(null),

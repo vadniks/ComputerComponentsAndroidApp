@@ -14,7 +14,9 @@ const notSelected = 'Not selected',
   viewDetails = 'View details',
   description = 'Description',
   image = 'Image',
-  since = 'Since 2022';
+  since = 'Since 2022',
+  welcome = 'Welcome ',
+  anonymous = 'Anonymous';
 
 const slogan = 'Build your own PC with PC Configurator online and free! Choose any components you like and buy them!',
   copyright = 'Copyright (C) 2022-2023 | All rights reserved',

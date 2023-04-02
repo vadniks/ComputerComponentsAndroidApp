@@ -44,7 +44,11 @@ const appNameWidget = Text(
 
 const subtitleStyle = TextStyle(fontSize: 14);
 
-Widget subtitle(String text) => Text(text, style: subtitleStyle);
+Widget subtitle(String text, {TextOverflow? overflow}) => Text(
+  text,
+  style: subtitleStyle,
+  overflow: overflow
+);
 
 Widget svgImage(String which, {double? width, double? height}) => SvgPicture.asset(
   assets + which + svgExtension,
@@ -56,6 +60,14 @@ Widget svgImageDefaultSized(String which) => svgImage(
   which,
   width: 50,
   height: 50
+);
+
+Widget appBarTexts([Widget? subtitle]) => Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    appNameWidget,
+    if (subtitle != null) subtitle
+  ]
 );
 
 extension NullableAdditionals on String?

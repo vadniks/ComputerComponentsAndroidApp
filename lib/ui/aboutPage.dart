@@ -22,21 +22,15 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        appNameWidget,
-        SizedBox(
-          width: _screenSize(context).width,
-          height: 15,
-          child: Marquee(
-            text: slogan,
-            style: subtitleStyle,
-            blankSpace: 20,
-          )
-        )
-      ]
-    )),
+    appBar: AppBar(title: appBarTexts(SizedBox(
+      width: _screenSize(context).width,
+      height: 15,
+      child: Marquee(
+        text: slogan,
+        style: subtitleStyle,
+        blankSpace: 20,
+      )
+    ))),
     body: SingleChildScrollView(child: SizedBox(
       width: _screenSize(context).width,
       height: _screenSize(context).height * 0.9,

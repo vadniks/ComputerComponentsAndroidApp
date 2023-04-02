@@ -54,7 +54,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       leading: svgImage(appIcon),
-      title: appNameWidget,
+      title: appBarTexts(subtitle(
+        '$welcome $anonymous!', // TODO
+        overflow: TextOverflow.ellipsis
+      )),
       actions: [
         IconButton(
           onPressed: () => _navigator.pushNamed(routeAbout),
