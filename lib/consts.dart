@@ -31,7 +31,11 @@ const notSelected = 'Not selected',
   totalCost = 'Total cost: ',
   orders = 'Orders',
   create = 'Create',
-  history = 'History';
+  history = 'History',
+  firstName = 'First name',
+  lastName = 'Last name',
+  phoneNumber = 'Phone number',
+  address = 'Address';
 
 const slogan = 'Build your own PC with PC Configurator online and free! Choose any components you like and buy them!',
   copyright = 'Copyright (C) 2022-2023 | All rights reserved',
