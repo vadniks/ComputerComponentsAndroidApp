@@ -1,4 +1,8 @@
 
+import 'dart:typed_data';
+
+import 'package:flutter/material.dart';
+
 import '../consts.dart';
 import 'proxies.dart';
 import 'package:dio/dio.dart';
@@ -21,9 +25,8 @@ class Net {
   //   height: height,
   // );
 
-  Future<dynamic> fetchImage(String which) async => _dio
-    .get(
-      imageUrl + which + jpgExtension,
-      options: Options(responseType: ResponseType.bytes)
-    ).then((response) => response.data);
+  Future<Image> fetchImage(String which) async => _dio.get(
+    imageUrl + which + jpgExtension,
+    options: Options(responseType: ResponseType.bytes)
+  ).then((response) => Image.memory(response.data as Uint8List));
 }
