@@ -24,8 +24,6 @@ class _SelectPageState extends PageState<SelectPage> {
   var _isSearching = false;
   late final TextEditingController _searchController;
 
-  Size get _screenSize => MediaQuery.of(context).size;
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -48,7 +46,6 @@ class _SelectPageState extends PageState<SelectPage> {
   void initState() {
     super.initState();
     _searchController = TextEditingController()..addListener(_search);
-    // _checkAuthorization();
   }
 
   @override
@@ -162,8 +159,8 @@ class _SelectPageState extends PageState<SelectPage> {
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: SizedBox(
-                width: _screenSize.width,
-                height: _screenSize.height * 0.3,
+                width: screenSize.width,
+                height: screenSize.height * 0.3,
                 child: TabBarView(children: [
                   ListTile(subtitle: Text(
                     component.description,

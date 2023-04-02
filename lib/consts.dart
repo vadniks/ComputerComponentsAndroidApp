@@ -35,7 +35,8 @@ const notSelected = 'Not selected',
   firstName = 'First name',
   lastName = 'Last name',
   phoneNumber = 'Phone number',
-  address = 'Address';
+  address = 'Address',
+  submitOrder = 'Submit order';
 
 const slogan = 'Build your own PC with PC Configurator online and free! Choose any components you like and buy them!',
   copyright = 'Copyright (C) 2022-2023 | All rights reserved',

@@ -16,6 +16,9 @@ abstract class PageState<T extends AbsPage> extends State<T> {
   NavigatorState get navigator => Navigator.of(context);
 
   @protected
+  Size get screenSize => MediaQuery.of(context).size;
+
+  @protected
   void updateState() => setState(() {});
 
   @protected

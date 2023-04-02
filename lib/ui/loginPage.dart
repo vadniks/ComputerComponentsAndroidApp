@@ -16,8 +16,6 @@ class _LoginPageState extends PageState<LoginPage> {
   final _passwordController = TextEditingController();
   var _register = false;
 
-  Size get _screenSize => MediaQuery.of(context).size;
-
   void _proceed() async {
     final successful = !_register
       ? await appSate.net.login(_loginController.text, _passwordController.text)
@@ -30,13 +28,13 @@ class _LoginPageState extends PageState<LoginPage> {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(title: appBarTexts(subtitle(!_register ? logIn : register))),
     body: Center(child: SizedBox(
-      width: _screenSize.width * 0.75,
+      width: screenSize.width * 0.75,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           svgImage(
             appIcon,
-            width: _screenSize.width * 0.35
+            width: screenSize.width * 0.35
           ),
           makeGreeting(appSate.net.fetchName),
           const SizedBox(height: 50),

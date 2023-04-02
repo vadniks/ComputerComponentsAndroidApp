@@ -41,27 +41,38 @@ class _OrderPageState extends PageState<OrderPage> {
         ]),
       ),
       body: TabBarView(children: [
-        Center(child: SingleChildScrollView(child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            makeTextField(
-              controller: _submitControllers[0],
-              hint: firstName
-            ),
-            makeTextField(
-              controller: _submitControllers[1],
-              hint: lastName
-            ),
-            makeTextField(
-              controller: _submitControllers[2],
-              hint: phoneNumber,
-              isNumeric: true
-            ),
-            makeTextField(
-              controller: _submitControllers[3],
-              hint: address
-            )
-          ]
+        Center(child: SingleChildScrollView(child: SizedBox(
+          width: screenSize.width * 0.75,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                submitOrder,
+                style: TextStyle(fontSize: 18),
+              ),
+              makeTextField(
+                controller: _submitControllers[0],
+                hint: firstName
+              ),
+              makeTextField(
+                controller: _submitControllers[1],
+                hint: lastName
+              ),
+              makeTextField(
+                controller: _submitControllers[2],
+                hint: phoneNumber,
+                isNumeric: true
+              ),
+              makeTextField(
+                controller: _submitControllers[3],
+                hint: address
+              ),
+              TextButton(
+                onPressed: () {},
+                child: const Text(submit),
+              )
+            ]
+          )
         ))),
         ListView.separated(
           itemBuilder: (_, index) => _makeItem(_ordered[index]),
