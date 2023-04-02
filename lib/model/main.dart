@@ -5,6 +5,7 @@ import '../ui/aboutPage.dart';
 import '../ui/homePage.dart';
 import '../ui/selectPage.dart';
 import '../ui/loginPage.dart';
+import 'net.dart';
 import 'proxies.dart';
 
 void main() => runApp(const App());
@@ -17,9 +18,10 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> implements AppState {
+  late final _net = Net(this);
 
   @override
-  Future<bool> get authorized => _authorized;
+  Future<bool> get authorized => _net.authorized;
 
   @override
   Widget build(BuildContext context) => MaterialApp(
