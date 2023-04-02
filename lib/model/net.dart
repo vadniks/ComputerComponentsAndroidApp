@@ -1,5 +1,4 @@
 
-import 'dart:convert';
 import 'dart:typed_data';
 import '../util.dart';
 import 'component.dart';
