@@ -119,7 +119,10 @@ class _SelectPageState extends PageState<SelectPage> {
     await _loadItems();
   }
 
-  void _onItemClick(Component component) => showModalBottomSheet(
+  void _onItemClick(Component component) async
+  => _showComponentDetails(component, await appSate.net.fetchImage(component.image));
+
+  void _showComponentDetails(Component component, Widget? fetchedImage) => showModalBottomSheet(
     context: context,
     builder: (builder) => SingleChildScrollView(child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -162,7 +165,7 @@ class _SelectPageState extends PageState<SelectPage> {
                     component.description,
                     textAlign: TextAlign.justify,
                   )),
-                  svgImage(component.image) // TODO: test only
+                  fetchedImage ?? svgImageDefaultSized(_type.icon)
                 ])
               ),
             )
@@ -208,7 +211,7 @@ class _SelectPageState extends PageState<SelectPage> {
           child: ListView.separated(
             itemBuilder: (_, index) => FutureBuilder<Widget>(
               future: _makeItem(_items[index], context),
-              builder: (_, snapshot) => snapshot.data != null ? snapshot.data! : svgImageDefaultSized(_type.icon)
+              builder: (_, snapshot) => snapshot.data != null ? snapshot.data! : const LinearProgressIndicator()
             ),
             separatorBuilder: (_, index) => divider,
             itemCount: _items.length

@@ -40,10 +40,12 @@ class _HomePageState extends PageState<HomePage> {
     );
   }
 
-  Widget _makeItem(int index) {
+  Future<Widget> _makeItem(int index) async {
     final component = _selected[index] ?? _makeStubComponent(index);
     return ListTile(
-      leading: component.id != null ? null : svgImageDefaultSized(component.image), // TODO
+      leading: component.id == null
+        ? svgImageDefaultSized(component.image)
+        : await appSate.net.fetchImage(component.image), // TODO: move futureBuilder here
       title: Text(component.title),
       subtitle: Text(component.type.title),
       trailing: Text(component.cost.withDollarSign),
@@ -71,7 +73,10 @@ class _HomePageState extends PageState<HomePage> {
       ]
     ),
     body: ListView.separated(
-      itemBuilder: (context, index) => _makeItem(index),
+      itemBuilder: (context, index) => FutureBuilder<Widget>( // TODO: move futureBuilder from here to _makeItem
+        future: _makeItem(index),
+        builder: (_, snapshot) => snapshot.data != null ? snapshot.data! : const LinearProgressIndicator()
+      ),
       separatorBuilder: (context, index) => divider,
       itemCount: _selected.length
     )
