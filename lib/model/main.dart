@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../consts.dart';
 import '../ui/aboutPage.dart';
 import '../ui/homePage.dart';
+import '../ui/orderPage.dart';
 import '../ui/selectPage.dart';
 import '../ui/loginPage.dart';
 import 'net.dart';
@@ -33,7 +34,8 @@ class _AppState extends State<App> implements AppState {
     routes: {
       routeSelect: (_) => SelectPage(this),
       routeAbout: (_) => const AboutPage(),
-      routeLogin: (_) => LoginPage(this)
+      routeLogin: (_) => LoginPage(this),
+      routeOrder: (_) => OrderPage(this)
     }
   );
 }

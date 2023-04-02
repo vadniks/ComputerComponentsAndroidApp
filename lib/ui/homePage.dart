@@ -16,10 +16,7 @@ class HomePage extends AbsPage {
 
 class _HomePageState extends PageState<HomePage> {
   final _selected = List<Component?>.filled(ComponentType.amount, null);
-  final _submitControllers = List.generate(4, (_) => TextEditingController(), growable: false); // TODO: move to a separate page
   var _totalCost = 0;
-  String? _userName;
-  var _isFetchingOrders = false;
 
   Future<bool> _checkAuthAnNotify() async {
     if (!await appSate.net.authorized) {

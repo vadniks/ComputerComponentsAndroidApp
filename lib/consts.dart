@@ -28,7 +28,10 @@ const notSelected = 'Not selected',
   successfulText = 'Successful',
   failedText = 'Failed',
   unauthorized = 'Unauthorized',
-  totalCost = 'Total cost: ';
+  totalCost = 'Total cost: ',
+  orders = 'Orders',
+  create = 'Create',
+  history = 'History';
 
 const slogan = 'Build your own PC with PC Configurator online and free! Choose any components you like and buy them!',
   copyright = 'Copyright (C) 2022-2023 | All rights reserved',
@@ -39,6 +42,7 @@ The quality of our custom built computers speak for themselves. They are reliabl
 const routeHome = '/',
   routeSelect = '/select',
   routeAbout = '/about',
-  routeLogin = '/login';
+  routeLogin = '/login',
+  routeOrder = '/order';
 
 const baseUrl = 'http://192.168.1.57:8080', imageUrl = '$baseUrl/res_back/';
