@@ -1,4 +1,6 @@
 
+// ignore_for_file: curly_braces_in_flow_control_structures
+
 import 'package:flutter/material.dart';
 import '../consts.dart';
 import '../model/component.dart';
@@ -19,10 +21,8 @@ class _HomePageState extends PageState<HomePage> {
   String? _userName;
   var _isFetchingOrders = false;
 
-  NavigatorState get _navigator => Navigator.of(context);
-
   void _onItemClick(int index) async {
-    final component = await _navigator.pushNamed(
+    final component = await navigator.pushNamed(
       routeSelect,
       arguments: ComponentType.values[index]
     );
@@ -56,22 +56,32 @@ class _HomePageState extends PageState<HomePage> {
     );
   }
 
+  void _logout() async { if (mounted) showSnackBar(
+    context,
+    await appSate.net.logout() ? successfulText : failedText
+  ); }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       leading: svgImage(appIcon),
-      title: appBarTexts(subtitle(
-        '$welcome $anonymous!', // TODO
-        overflow: TextOverflow.ellipsis
-      )),
+      title: appBarTexts(makeGreeting(appSate.net.fetchName)),
       actions: [
         IconButton(
-          onPressed: () => _navigator.pushNamed(routeAbout),
+          onPressed: () => navigator.pushNamed(routeAbout),
           icon: const Icon(Icons.info)
         ),
-        IconButton(
-          onPressed: () => _navigator.pushNamed(routeLogin), // TODO
-          icon: Icon(Icons.login)
+        FutureBuilder<bool>(
+          future: appSate.net.authorized,
+          builder: (_, snapshot) {
+            final authorized = snapshot.data != null && snapshot.data == true;
+            return IconButton(
+              onPressed: () => authorized
+                ? _logout()
+                : navigator.pushNamed(routeLogin).then((_) => updateState),
+              icon: Icon(authorized ? Icons.logout : Icons.login)
+            );
+          }
         )
       ]
     ),

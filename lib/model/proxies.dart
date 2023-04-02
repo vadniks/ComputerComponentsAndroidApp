@@ -7,10 +7,16 @@ abstract class AbsPage extends StatefulWidget {
   const AbsPage(this.appSate, {super.key});
 }
 
-abstract class PageState<T extends AbsPage> extends State<T>
-{ AppState get appSate => widget.appSate; }
+abstract class PageState<T extends AbsPage> extends State<T> {
 
-/*interface*/ abstract class AppState {
-  Future<bool> get authorized;
-  Net get net;
+  @protected
+  AppState get appSate => widget.appSate;
+
+  @protected
+  NavigatorState get navigator => Navigator.of(context);
+
+  @protected
+  void updateState() => setState(() {});
 }
+
+/*interface*/ abstract class AppState { Net get net; }

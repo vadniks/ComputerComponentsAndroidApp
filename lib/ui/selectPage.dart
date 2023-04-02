@@ -24,8 +24,6 @@ class _SelectPageState extends PageState<SelectPage> {
   var _isSearching = false;
   late final TextEditingController _searchController;
 
-  NavigatorState get _navigator => Navigator.of(context);
-
   Size get _screenSize => MediaQuery.of(context).size;
 
   @override
@@ -139,7 +137,7 @@ class _SelectPageState extends PageState<SelectPage> {
             child: Text(component.title)
           ),
           trailing: IconButton(
-            onPressed: () => _navigator..pop()..pop(component),
+            onPressed: () => navigator..pop()..pop(component),
             icon: const Icon(Icons.done),
           ),
         ),
@@ -194,7 +192,7 @@ class _SelectPageState extends PageState<SelectPage> {
       ),
       actions: [
         if (!_isSearching) IconButton(
-          onPressed: () => _navigator.pop(null),
+          onPressed: () => navigator.pop(null),
           icon: const Icon(Icons.remove_circle),
         ),
         IconButton(

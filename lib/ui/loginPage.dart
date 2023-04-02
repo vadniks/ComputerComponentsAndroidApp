@@ -18,6 +18,14 @@ class _LoginPageState extends PageState<LoginPage> {
 
   Size get _screenSize => MediaQuery.of(context).size;
 
+  void _proceed() async {
+    final successful = !_register
+      ? await appSate.net.login(_loginController.text, _passwordController.text)
+      : false; // TODO
+    if (successful) navigator.pop();
+    if (mounted) showSnackBar(context, successful ? successfulText : failedText);
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(title: appBarTexts(subtitle(!_register ? logIn : register))),
@@ -30,10 +38,7 @@ class _LoginPageState extends PageState<LoginPage> {
             appIcon,
             width: _screenSize.width * 0.35
           ),
-          const Text(
-            '$welcome $anonymous!',
-            style: TextStyle(fontSize: 20),
-          ),
+          makeGreeting(appSate.net.fetchName),
           const SizedBox(height: 50),
           makeTextField(
             controller: _loginController,
@@ -48,7 +53,7 @@ class _LoginPageState extends PageState<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextButton(
-                onPressed: () { if (!_register) appSate.net.login(login, password); /*else TODO*/ },
+                onPressed: _proceed,
                 child: const Text(proceed),
               ),
               TextButton(

@@ -21,22 +21,7 @@ class _AppState extends State<App> implements AppState {
   late final _net = Net(this);
 
   @override
-  Future<bool> get authorized => _net.authorized;
-
-  @override
   Net get net => _net;
-
-  @override
-  void didChangeDependencies() { // TODO: test only
-    super.didChangeDependencies();
-    authorized.then((value) {
-      debugPrint('dvrfgv $value');
-      net.login('user', 'user').then((value2) {
-        debugPrint('dvrfgv2 $value2');
-        authorized.then((value3) => debugPrint('dvrfgv3 $value3'));
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) => MaterialApp(

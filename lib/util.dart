@@ -75,6 +75,14 @@ Widget appBarTexts([Widget? subtitle]) => Column(
   ]
 );
 
+Widget makeGreeting(Future<String?> Function() fetcher) => FutureBuilder<String?>(
+  future: fetcher(),
+  builder: (_, snapshot) => subtitle(
+    '$welcome ${snapshot.data == null ? anonymous : snapshot.data!}!',
+    overflow: TextOverflow.ellipsis
+  )
+);
+
 extension NullableAdditionals on String? { String get value => this ?? nullString; }
 
 extension Additionals on String
