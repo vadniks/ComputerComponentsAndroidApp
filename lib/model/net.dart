@@ -20,16 +20,21 @@ class Net {
   Future<bool> get authorized async
   => (await _dio.get('$baseUrl/authorizedU')).statusCode == 200;
 
-  Future<Image?> fetchImage(String which) async => _dio.get(
-    imageUrl + which + jpgExtension,
-    options: Options(responseType: ResponseType.bytes)
-  ).then((response) => response.successful ? Image.memory(response.data as Uint8List) : null);
+  Future<Image?> fetchImage(String which) async {
+    try { return await _dio.get(
+      imageUrl + which + jpgExtension,
+      options: Options(responseType: ResponseType.bytes)
+    ).then((response) => response.successful ? Image.memory(response.data as Uint8List) : null); }
+    on DioError catch (_) { return null; }
+  }
 
-  Future<List<Component>> fetchComponents(ComponentType type) => _dio.get(
-    '$baseUrl/component/type/${type.id}',
-    options: _jsonOptions
-  ).then((response) => response.successful ? [
-    for (final dynamic i in response.data)
-      Component.fromJson(i)
-  ] : []);
+  Future<List<Component>> fetchComponents(ComponentType type) async {
+    try { return await _dio.get(
+      '$baseUrl/component/type/${type.id}',
+      options: _jsonOptions
+    ).then((response) => response.successful ? [
+      for (final dynamic i in response.data)
+        Component.fromJson(i)
+    ] : []); } on DioError catch (_) { return <Component>[]; }
+  }
 }

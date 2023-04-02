@@ -34,9 +34,9 @@ class _AppState extends State<App> implements AppState {
     theme: ThemeData.dark(useMaterial3: true),
     home: HomePage(this),
     routes: {
-      routeSelect: (context) => SelectPage(this),
-      routeAbout: (context) => const AboutPage(),
-      routeLogin: (context) => LoginPage(this)
+      routeSelect: (_) => SelectPage(this),
+      routeAbout: (_) => const AboutPage(),
+      routeLogin: (_) => LoginPage(this)
     }
   );
 }

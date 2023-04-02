@@ -59,17 +59,23 @@ class _SelectPageState extends PageState<SelectPage> {
     super.dispose();
   }
 
-  Future<Widget> _makeItem(Component component, BuildContext context) async => ListTile(
-    onTap: () => _onItemClick(component),
-    leading: component.id == null ? svgImageDefaultSized(component.image) : await appSate.net.fetchImage(component.image),
-    title: Text(
-      component.title,
-      overflow: TextOverflow.ellipsis,
-    ),
-    trailing: Text(component.cost.withDollarSign)
-  );
+  Widget _makeItem(Component component) {
+    final stubImage = svgImageDefaultSized(_type.icon);
+    return ListTile(
+      onTap: () => _onItemClick(component),
+      leading: component.id == null ? stubImage : FutureBuilder<Widget?>(
+        future: appSate.net.fetchImage(component.image),
+        builder: (_, snapshot) => snapshot.data ?? stubImage
+      ),
+      title: Text(
+        component.title,
+        overflow: TextOverflow.ellipsis,
+      ),
+      trailing: Text(component.cost.withDollarSign)
+    );
+  }
 
-  Future<List<Component>> _fetch() async => appSate.net.fetchComponents(_type);
+  Future<List<Component>> _fetch() async => await appSate.net.fetchComponents(_type);
 
   Future<void> _loadItems() async {
     setState(() => _isFetching = true);
@@ -209,10 +215,7 @@ class _SelectPageState extends PageState<SelectPage> {
           triggerMode: RefreshIndicatorTriggerMode.anywhere,
           notificationPredicate: (notification) => notification.depth == 0 && !_isSearching,
           child: ListView.separated(
-            itemBuilder: (_, index) => FutureBuilder<Widget>(
-              future: _makeItem(_items[index], context),
-              builder: (_, snapshot) => snapshot.data != null ? snapshot.data! : const LinearProgressIndicator()
-            ),
+            itemBuilder: (_, index) => _makeItem(_items[index]),
             separatorBuilder: (_, index) => divider,
             itemCount: _items.length
           ),
