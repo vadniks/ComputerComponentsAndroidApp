@@ -1,5 +1,4 @@
 
-import 'package:flutter/material.dart';
 import '../consts.dart';
 import 'proxies.dart';
 import 'package:dio/dio.dart';
@@ -16,11 +15,13 @@ class Net {
   Future<bool> get authorized async
   => (await _dio.get('$baseUrl/authorizedU')).statusCode == 200;
 
-  Image loadImage(String image, {required double width, required double height}) => Image.network(
-    imageUrl + image + jpgExtension,
-    width: width,
-    height: height,
-  );
+  // Image loadImage(String image, {required double width, required double height}) => Image.network(
+  //   imageUrl + image + jpgExtension,
+  //   width: width,
+  //   height: height,
+  // );
 
-
+  Future<String> fetchImage(String which) async => _dio
+    .get(imageUrl + which + jpgExtension)
+    .then((response) => response.data.toString());
 }

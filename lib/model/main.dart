@@ -22,6 +22,12 @@ class _AppState extends State<App> implements AppState {
 
   @override
   Future<bool> get authorized => _net.authorized;
+  
+  @override
+  void initState() {
+    super.initState();
+    _net.fetchImage('amd_r5').then((value) => debugPrint(value));
+  }
 
   @override
   Widget build(BuildContext context) => MaterialApp(
