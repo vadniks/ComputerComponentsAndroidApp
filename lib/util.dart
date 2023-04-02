@@ -1,4 +1,5 @@
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'consts.dart';
@@ -80,3 +81,5 @@ extension Additionals on String
 { bool containsIgnoreCase(String value) => toLowerCase().contains(value.toLowerCase()); }
 
 extension Additions on int { String get withDollarSign => '$this\$'; }
+
+extension AdditionsR on Response { bool get successful => statusCode == 200; }

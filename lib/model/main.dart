@@ -24,6 +24,9 @@ class _AppState extends State<App> implements AppState {
   Future<bool> get authorized => _net.authorized;
 
   @override
+  Net get net => _net;
+
+  @override
   Widget build(BuildContext context) => MaterialApp(
     title: appName,
     themeMode: ThemeMode.dark,

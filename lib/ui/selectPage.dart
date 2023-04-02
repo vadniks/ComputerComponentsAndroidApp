@@ -69,13 +69,15 @@ class _SelectPageState extends PageState<SelectPage> {
     trailing: Text(component.cost.withDollarSign)
   );
 
-  Future<List<Component>> _fetch() async => [for (var i = 0; i < 10; i++) Component( // TODO: test only
-    title: '${_type.title} $i',
-    type: _type,
-    description: lorem,
-    cost: i,
-    image: _type.icon
-  )];
+  // Future<List<Component>> _fetch() async => [for (var i = 0; i < 10; i++) Component( // TODO: test only
+  //   title: '${_type.title} $i',
+  //   type: _type,
+  //   description: lorem,
+  //   cost: i,
+  //   image: _type.icon
+  // )];
+
+  Future<List<Component>> _fetch() async => appSate.net.fetchComponents(_type);
 
   Future<void> _loadItems() async {
     setState(() => _isFetching = true);

@@ -28,7 +28,7 @@ class Component {
   factory Component.fromJson(Map<String, dynamic> json) => Component(
       id: json[idC],
       title: json[titleC],
-      type: ComponentType.create(title: json[typeC])!,
+      type: ComponentType.create(value: json[typeC])!,
       description: json[descriptionC],
       cost: json[costC],
       image: json[imageC]
@@ -36,15 +36,14 @@ class Component {
 
   @override
   bool operator ==(Object other) =>
-    identical(this, other) ||
-      other is Component &&
-        runtimeType == other.runtimeType &&
-        id == other.id &&
-        title == other.title &&
-        type == other.type &&
-        description == other.description &&
-        cost == other.cost &&
-        image == other.image;
+    identical(this, other) || other is Component &&
+      runtimeType == other.runtimeType &&
+      id == other.id &&
+      title == other.title &&
+      type == other.type &&
+      description == other.description &&
+      cost == other.cost &&
+      image == other.image;
 
   @override
   int get hashCode =>
@@ -83,11 +82,11 @@ enum ComponentType {
   final String value;
   static int amount = ComponentType.values.length;
 
-  static ComponentType? create({int? id, String? title}) {
-    assert(id != null || title != null);
+  static ComponentType? create({int? id, String? value}) {
+    assert((id != null) != (value != null));
 
     for (final ComponentType type in ComponentType.values)
-      if (id != null && type.id == id || title != null && type.title == title)
+      if (id != null && type.id == id || value != null && type.value == value)
         return type;
 
     return null;
