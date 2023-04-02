@@ -63,10 +63,10 @@ class _HomePageState extends State<HomePage> {
           onPressed: () => _navigator.pushNamed(routeAbout),
           icon: const Icon(Icons.info)
         ),
-        // IconButton(
-        //   onPressed: null, // TODO
-        //   icon: Icon(_authorized ? Icons.logout : Icons.login)
-        // )
+        IconButton(
+          onPressed: () => _navigator.pushNamed(routeLogin), // TODO
+          icon: Icon(Icons.login)
+        )
       ]
     ),
     body: ListView.separated(

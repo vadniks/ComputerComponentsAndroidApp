@@ -4,6 +4,7 @@ import 'consts.dart';
 import 'ui/aboutPage.dart';
 import 'ui/homePage.dart';
 import 'ui/selectPage.dart';
+import 'ui/loginPage.dart';
 
 void main() => runApp(const App());
 
@@ -19,7 +20,8 @@ class App extends StatelessWidget {
     home: const HomePage(),
     routes: {
       routeSelect: (context) => const SelectPage(),
-      routeAbout: (context) => const AboutPage()
+      routeAbout: (context) => const AboutPage(),
+      routeLogin: (context) => const LoginPage()
     }
   );
 }

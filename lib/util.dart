@@ -70,18 +70,9 @@ Widget appBarTexts([Widget? subtitle]) => Column(
   ]
 );
 
-extension NullableAdditionals on String?
-{ String get value => this ?? nullString; }
+extension NullableAdditionals on String? { String get value => this ?? nullString; }
 
-extension Additionals on String {
+extension Additionals on String
+{ bool containsIgnoreCase(String value) => toLowerCase().contains(value.toLowerCase()); }
 
-  bool containsIgnoreCase(String value)
-  => toLowerCase().contains(value.toLowerCase());
-
-  Uri get uri => Uri.parse(this);
-
-  String get beforeLast => substring(0, length - 1);
-}
-
-extension Additions on int
-{ String get withDollarSign => '$this\$'; }
+extension Additions on int { String get withDollarSign => '$this\$'; }
