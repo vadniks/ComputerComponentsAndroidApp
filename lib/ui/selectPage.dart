@@ -126,7 +126,7 @@ class _SelectPageState extends PageState<SelectPage> {
   }
 
   void _onItemClick(Component component) async
-  => _showComponentDetails(component, await appSate.net.fetchImage(component.image));
+  => _showComponentDetails(component, await appSate.net.fetchImage(component.image, false));
 
   void _showComponentDetails(Component component, Widget? fetchedImage) => showModalBottomSheet(
     context: context,

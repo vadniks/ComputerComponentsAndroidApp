@@ -20,11 +20,15 @@ class Net {
   Future<bool> get authorized async
   => (await _dio.get('$baseUrl/authorizedU')).statusCode == 200;
 
-  Future<Image?> fetchImage(String which) async {
+  Future<Image?> fetchImage(String which, [bool defaultSize = true]) async {
     try { return await _dio.get(
       imageUrl + which + jpgExtension,
       options: Options(responseType: ResponseType.bytes)
-    ).then((response) => response.successful ? Image.memory(response.data as Uint8List) : null); }
+    ).then((response) => response.successful ? Image.memory(
+      response.data as Uint8List,
+      width: defaultSize ? 50 : null,
+      height: defaultSize ? 50 : null,
+    ) : null); }
     on DioError catch (_) { return null; }
   }
 
