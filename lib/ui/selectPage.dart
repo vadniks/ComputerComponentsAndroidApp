@@ -1,7 +1,6 @@
 
 // ignore_for_file: curly_braces_in_flow_control_structures
 
-import 'package:flutter_svg/svg.dart';
 import '../consts.dart';
 import '../model/component.dart';
 import '../util.dart';

@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:marquee/marquee.dart';
 import '../consts.dart';
 import '../util.dart';
