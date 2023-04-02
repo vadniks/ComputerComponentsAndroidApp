@@ -19,12 +19,6 @@ class Net {
   Future<bool> get authorized async
   => (await _dio.get('$baseUrl/authorizedU')).statusCode == 200;
 
-  // Image loadImage(String image, {required double width, required double height}) => Image.network(
-  //   imageUrl + image + jpgExtension,
-  //   width: width,
-  //   height: height,
-  // );
-
   Future<Image> fetchImage(String which) async => _dio.get(
     imageUrl + which + jpgExtension,
     options: Options(responseType: ResponseType.bytes)
