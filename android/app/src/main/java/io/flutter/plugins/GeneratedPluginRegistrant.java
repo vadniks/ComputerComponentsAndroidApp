@@ -12,8 +12,8 @@ import io.flutter.embedding.engine.FlutterEngine;
  * plugins that support the Android platform.
  */
 @Keep
-@SuppressWarnings("unused")
 public final class GeneratedPluginRegistrant {
   private static final String TAG = "GeneratedPluginRegistrant";
-  public static void registerWith(@NonNull FlutterEngine flutterEngine) {}
+  public static void registerWith(@NonNull FlutterEngine flutterEngine) {
+  }
 }
