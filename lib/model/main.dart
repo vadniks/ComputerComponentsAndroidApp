@@ -1,11 +1,11 @@
 
 import 'package:flutter/material.dart';
-import 'consts.dart';
-import 'ui/aboutPage.dart';
-import 'ui/homePage.dart';
-import 'ui/selectPage.dart';
-import 'ui/loginPage.dart';
-import 'model/proxies.dart';
+import '../consts.dart';
+import '../ui/aboutPage.dart';
+import '../ui/homePage.dart';
+import '../ui/selectPage.dart';
+import '../ui/loginPage.dart';
+import 'proxies.dart';
 
 void main() => runApp(const App());
 
