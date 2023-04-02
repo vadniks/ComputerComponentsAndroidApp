@@ -56,10 +56,13 @@ class _HomePageState extends PageState<HomePage> {
     );
   }
 
-  void _logout() async { if (mounted) showSnackBar(
-    context,
-    await appSate.net.logout() ? successfulText : failedText
-  ); }
+  void _logout() async {
+    if (mounted) showSnackBar(
+      context,
+      await appSate.net.logout() ? successfulText : failedText
+    );
+    updateState();
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -78,7 +81,10 @@ class _HomePageState extends PageState<HomePage> {
             return IconButton(
               onPressed: () => authorized
                 ? _logout()
-                : navigator.pushNamed(routeLogin).then((_) => updateState),
+                : navigator.pushNamed(routeLogin).then((_) => Future.delayed(
+                  const Duration(seconds: 1),
+                  updateState
+                )),
               icon: Icon(authorized ? Icons.logout : Icons.login)
             );
           }

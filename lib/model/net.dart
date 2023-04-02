@@ -61,6 +61,6 @@ class Net {
 
   Future<bool> logout() async { try {
     return await _dio.post('$baseUrl/logout')
-      .then((response) => response.successful && response.data == true);
+      .then((response) => response.successful);
   } on DioError catch (_) { return false; } }
 }
