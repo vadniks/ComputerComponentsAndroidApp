@@ -111,6 +111,13 @@ class _HomePageState extends PageState<HomePage> {
               icon: Icon(authorized ? Icons.logout : Icons.login)
             );
           }
+        ),
+        IconButton(
+          onPressed: () async {
+            if (!await _checkAuthAnNotify()) return;
+            navigator.pushNamed(routeOrder);
+          },
+          icon: const Icon(Icons.shopping_cart),
         )
       ]
     ),
