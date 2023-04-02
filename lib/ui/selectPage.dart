@@ -43,7 +43,7 @@ class _SelectPageState extends State<SelectPage> {
     } else
       setType(args);
 
-    if (!_isLeaving) _loadItems();
+    if (!_isLeaving && _items.isEmpty) _loadItems();
   }
 
   @override

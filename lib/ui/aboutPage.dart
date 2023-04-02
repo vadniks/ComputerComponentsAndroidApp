@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:marquee/marquee.dart';
 import '../consts.dart';
 import '../util.dart';
 
@@ -22,22 +23,21 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      leading: SvgPicture.asset(assets + appIcon + svgExtension), // TODO: extract template
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          appNameWidget,
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Text(
-              slogan,
-              style: TextStyle(fontSize: 14),
-            ),
+    appBar: AppBar(title: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        appNameWidget,
+        SizedBox(
+          width: _screenSize(context).width,
+          height: 15,
+          child: Marquee(
+            text: slogan,
+            style: const TextStyle(fontSize: 14),
+            blankSpace: 20,
           )
-        ]
-      ),
-    ),
+        )
+      ]
+    )),
     body: SingleChildScrollView(child: SizedBox(
       width: _screenSize(context).width,
       height: _screenSize(context).height * 0.9,
