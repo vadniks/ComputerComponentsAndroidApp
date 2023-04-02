@@ -89,7 +89,6 @@ class Net {
 
     return !response.successful ? [] :
       [for (final Map<String, dynamic> i in response.data) Component.fromJson(i)];
-
   } on DioError catch (_) { return []; } }
 
   Future<bool> clearHistory() async { try {
