@@ -42,7 +42,7 @@ class _HomePageState extends PageState<HomePage> {
 
   Widget _makeItem(int index) {
     final component = _selected[index] ?? _makeStubComponent(index);
-    final stubImage = svgImageDefaultSized(component.image);
+    final stubImage = svgImageDefaultSized(component.type.icon);
 
     return ListTile(
       leading: component.id == null ? stubImage : FutureBuilder<Widget?>(
