@@ -107,17 +107,23 @@ class _HomePageState extends PageState<HomePage> {
     body: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        ListView.separated(
+        Expanded(child: ListView.separated(
           itemBuilder: (_, index) => _makeItem(index),
           separatorBuilder: (_, __) => divider,
           itemCount: _selected.length
-        ),
-        ListTile(
-          title: Text('$totalCost ${_totalCost.withDollarSign}'),
-          trailing: IconButton(
-            onPressed: _clear,
-            icon: const Icon(Icons.clear_all),
-          ),
+        )),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            divider,
+            ListTile(
+              title: Text('$totalCost ${_totalCost.withDollarSign}'),
+              trailing: IconButton(
+                onPressed: _clear,
+                icon: const Icon(Icons.clear_all),
+              ),
+            )
+          ]
         )
       ]
     )
