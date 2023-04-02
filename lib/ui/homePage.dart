@@ -16,7 +16,7 @@ class HomePage extends AbsPage {
 
 class _HomePageState extends PageState<HomePage> {
   final _selected = List<Component?>.filled(ComponentType.amount, null);
-  final _submitControllers = List.generate(4, (_) => TextEditingController(), growable: false);
+  final _submitControllers = List.generate(4, (_) => TextEditingController(), growable: false); // TODO: move to a separate page
   var _totalCost = 0;
   String? _userName;
   var _isFetchingOrders = false;
@@ -31,7 +31,11 @@ class _HomePageState extends PageState<HomePage> {
       routeSelect,
       arguments: ComponentType.values[index]
     );
-    setState(() => _selected[index] = component != null && component is Component ? component : null);
+    final chosen = component != null && component is Component;
+
+    _selected[index] = chosen ? component : null;
+    for (final i in _selected) _totalCost += i?.cost ?? 0;
+    if (mounted) updateState();
   }
 
   Component _makeStubComponent(int index) {
@@ -66,6 +70,13 @@ class _HomePageState extends PageState<HomePage> {
     updateState();
   }
 
+  void _clear() {
+    for (var i = 0; i < _selected.length; i++)
+      _selected[i] = null;
+    _totalCost = 0;
+    updateState();
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -93,10 +104,22 @@ class _HomePageState extends PageState<HomePage> {
         )
       ]
     ),
-    body: ListView.separated(
-      itemBuilder: (_, index) => _makeItem(index),
-      separatorBuilder: (_, __) => divider,
-      itemCount: _selected.length
+    body: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        ListView.separated(
+          itemBuilder: (_, index) => _makeItem(index),
+          separatorBuilder: (_, __) => divider,
+          itemCount: _selected.length
+        ),
+        ListTile(
+          title: Text('$totalCost ${_totalCost.withDollarSign}'),
+          trailing: IconButton(
+            onPressed: _clear,
+            icon: const Icon(Icons.clear_all),
+          ),
+        )
+      ]
     )
   );
 }

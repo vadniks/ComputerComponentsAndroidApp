@@ -35,15 +35,15 @@ class User {
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-      id: json[idC],
-      name: json[nameC],
-      role: Role.create(json[roleC])!,
-      password: json[passwordC],
-      firstName: json[firstNameC],
-      lastName: json[lastNameC],
-      phone: json[phoneC],
-      address: json[addressC],
-      selection: json[selectionC]
+    id: json[idC],
+    name: json[nameC],
+    role: Role.create(json[roleC])!,
+    password: json[passwordC],
+    firstName: json[firstNameC],
+    lastName: json[lastNameC],
+    phone: json[phoneC],
+    address: json[addressC],
+    selection: json[selectionC]
   );
 
   @override
