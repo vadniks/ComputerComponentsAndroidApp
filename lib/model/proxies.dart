@@ -10,4 +10,4 @@ abstract class AbsPage extends StatefulWidget {
 abstract class PageState<T extends AbsPage> extends State<T>
 { AppState get appSate => widget.appSate; }
 
-/*interface*/ abstract class AppState { bool get authorized; }
+/*interface*/ abstract class AppState { Future<bool> get authorized; }

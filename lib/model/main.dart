@@ -17,10 +17,9 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> implements AppState {
-  var _authorized = false;
 
   @override
-  bool get authorized => _authorized;
+  Future<bool> get authorized => _authorized;
 
   @override
   Widget build(BuildContext context) => MaterialApp(
