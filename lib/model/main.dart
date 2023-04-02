@@ -1,4 +1,6 @@
 
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import '../consts.dart';
 import '../ui/aboutPage.dart';
@@ -26,7 +28,7 @@ class _AppState extends State<App> implements AppState {
   @override
   void initState() {
     super.initState();
-    _net.fetchImage('amd_r5').then((value) => debugPrint(value));
+    _net.fetchImage('amd_r5').then((value) => debugPrint((value as Uint8List).length.toString()));
   }
 
   @override

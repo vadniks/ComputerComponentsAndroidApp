@@ -21,7 +21,9 @@ class Net {
   //   height: height,
   // );
 
-  Future<String> fetchImage(String which) async => _dio
-    .get(imageUrl + which + jpgExtension)
-    .then((response) => response.data.toString());
+  Future<dynamic> fetchImage(String which) async => _dio
+    .get(
+      imageUrl + which + jpgExtension,
+      options: Options(responseType: ResponseType.bytes)
+    ).then((response) => response.data);
 }
