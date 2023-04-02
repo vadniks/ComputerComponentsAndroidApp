@@ -48,7 +48,7 @@ class _LoginPageState extends PageState<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () { if (!_register) appSate.net.login(login, password); /*else TODO*/ },
                 child: const Text(proceed),
               ),
               TextButton(
