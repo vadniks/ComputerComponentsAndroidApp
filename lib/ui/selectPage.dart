@@ -189,7 +189,7 @@ class _SelectPageState extends PageState<SelectPage> {
       ),
       actions: [
         if (!_isSearching) IconButton(
-          onPressed: () => navigator.pop(null),
+          onPressed: () => navigator.pop(makeStubComponent(type: _type)),
           icon: const Icon(Icons.remove_circle),
         ),
         IconButton(

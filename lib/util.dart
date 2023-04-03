@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'consts.dart';
+import 'model/component.dart';
 
 dynamic getArgs(BuildContext context) => ModalRoute.of(context)!.settings.arguments;
 
@@ -78,6 +79,18 @@ Widget makeGreeting(Future<String?> username) => FutureBuilder<String?>(
     overflow: TextOverflow.ellipsis
   )
 );
+
+Component makeStubComponent({int? index, ComponentType? type}) {
+  assert((index != null) != (type != null));
+  final type2 = type ?? ComponentType.create(id: index!)!;
+  return Component(
+    title: notSelected,
+    type: type2,
+    description: notSelected,
+    cost: 0,
+    image: type2.icon
+  );
+}
 
 extension NullableAdditionals on String? { String get value => this ?? nullString; }
 

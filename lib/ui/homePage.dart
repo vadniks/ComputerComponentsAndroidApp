@@ -35,28 +35,22 @@ class _HomePageState extends PageState<HomePage> {
       routeSelect,
       arguments: ComponentType.values[index]
     );
-    final chosen = component != null && component is Component;
 
-    _selected[index] = chosen ? component : null;
+    if (component != null && component is Component) {
+      if (component.id != null)
+        _selected[index] = component;
+      else
+        _selected[index] = null;
+    }
+
     _totalCost = 0;
     _calcCost();
 
     if (mounted) updateState();
   }
 
-  Component _makeStubComponent(int index) {
-    final type = ComponentType.create(id: index)!;
-    return Component(
-      title: notSelected,
-      type: type,
-      description: notSelected,
-      cost: 0,
-      image: type.icon
-    );
-  }
-
   Widget _makeItem(int index) {
-    final component = _selected[index] ?? _makeStubComponent(index);
+    final component = _selected[index] ?? makeStubComponent(index: index);
     final stubImage = svgImageDefaultSized(component.type.icon);
 
     return ListTile(
