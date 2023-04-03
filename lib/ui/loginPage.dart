@@ -14,19 +14,19 @@ class LoginPage extends AbsPage {
 class _LoginPageState extends PageState<LoginPage> {
   final _loginController = TextEditingController();
   final _passwordController = TextEditingController();
-  var _register = false;
 
   void _proceed() async {
-    final successful = !_register
-      ? await appSate.net.login(_loginController.text, _passwordController.text)
-      : false; // TODO
+    final successful = await appSate.net.login(
+      _loginController.text,
+      _passwordController.text
+    );
     if (successful) navigator.pop();
     if (mounted) showSnackBar(successful ? successfulText : failedText);
   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: appBarTexts(subtitle(!_register ? logIn : register))),
+    appBar: AppBar(title: appBarTexts(subtitle(logIn))),
     body: Center(child: SizedBox(
       width: screenSize.width * 0.75,
       child: Column(
@@ -55,10 +55,6 @@ class _LoginPageState extends PageState<LoginPage> {
                 child: const Text(proceed),
               ),
               TextButton(
-                onPressed: () => setState(() => _register = !_register),
-                child: Text(_register ? logIn : register)
-              ),
-              TextButton(
                 onPressed: () => setState(() {
                   _loginController.text = emptyString;
                   _passwordController.text = emptyString;
@@ -68,7 +64,7 @@ class _LoginPageState extends PageState<LoginPage> {
             ]
           )
         ]
-      ),
+      )
     ))
   );
 }
