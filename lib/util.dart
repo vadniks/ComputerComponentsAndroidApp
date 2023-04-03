@@ -71,8 +71,8 @@ Widget appBarTexts([Widget? subtitle]) => Column(
   ]
 );
 
-Widget makeGreeting(Future<String?> Function() fetcher) => FutureBuilder<String?>(
-  future: fetcher(),
+Widget makeGreeting(Future<String?> username) => FutureBuilder<String?>(
+  future: username,
   builder: (_, snapshot) => subtitle(
     '$welcome ${snapshot.data == null ? anonymous : snapshot.data!}!',
     overflow: TextOverflow.ellipsis

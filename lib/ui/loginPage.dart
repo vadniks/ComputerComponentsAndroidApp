@@ -36,7 +36,7 @@ class _LoginPageState extends PageState<LoginPage> {
             appIcon,
             width: screenSize.width * 0.35
           ),
-          makeGreeting(appSate.net.fetchName),
+          makeGreeting(appSate.net.fetchName()),
           const SizedBox(height: 50),
           makeTextField(
             controller: _loginController,

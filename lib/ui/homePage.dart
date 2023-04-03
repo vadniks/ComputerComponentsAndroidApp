@@ -91,7 +91,7 @@ class _HomePageState extends PageState<HomePage> {
         padding: const EdgeInsets.only(left: 10),
         child: svgImage(appIcon),
       ),
-      title: appBarTexts(makeGreeting(appSate.net.fetchName)),
+      title: appBarTexts(makeGreeting(appSate.net.fetchName())),
       actions: [
         IconButton(
           onPressed: () => navigator.pushNamed(routeAbout),
@@ -104,10 +104,7 @@ class _HomePageState extends PageState<HomePage> {
             return IconButton(
               onPressed: () => authorized
                 ? _logout()
-                : navigator.pushNamed(routeLogin).then((_) => Future.delayed(
-                  const Duration(seconds: 1),
-                  updateState
-                )),
+                : navigator.pushNamed(routeLogin).then((_) => updateState()),
               icon: Icon(authorized ? Icons.logout : Icons.login)
             );
           }
