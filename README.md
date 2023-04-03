@@ -11,7 +11,7 @@ This is a mobile port of the [front-end](https://github.com/vadniks/ComputerComp
 part of the whole web app. The mobile app's logic is written entirely in [Dart](https://dart.dev) 
 using [Flutter](https://flutter.dev) - the `ULTIMATE` UI framework for any platform.
 
-App requires [Server](https://github.com/vadniks/ComputerComponentsWebApp2) in order to function properly.
+App requires [Server](https://github.com/vadniks/ComputerComponentsWebApp2_back) in order to function properly.
 
 ## Features
 
