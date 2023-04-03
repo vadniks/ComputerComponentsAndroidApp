@@ -108,7 +108,7 @@ class Net {
   Future<List<Component?>> fetchSelected() async { try {
     final response = await _dio.get('$baseUrl/selected');
 
-    return !response.successful ? [] : [
+    return !response.successful || response.data == null ? [] : [
       for (final String i in (response.data as String).split(','))
         i == nullString ? null : (await fetchComponent(int.tryParse(i)!))!
     ];
@@ -116,5 +116,9 @@ class Net {
 
   Future<bool> clearSelected() async { try {
     return (await _dio.post('$baseUrl/clearSelected')).successful;
+  } on DioError catch (_) { return false; } }
+
+  Future<bool> select(int id) async { try {
+    return (await _dio.post('$baseUrl/select/$id')).successful;
   } on DioError catch (_) { return false; } }
 }

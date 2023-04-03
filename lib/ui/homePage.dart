@@ -37,9 +37,12 @@ class _HomePageState extends PageState<HomePage> {
     );
 
     if (component != null && component is Component) {
-      if (component.id != null)
-        _selected[index] = component;
-      else
+      if (component.id != null) {
+        if (await appSate.net.select(component.id!))
+          _selected[index] = component;
+        else if (mounted)
+          showSnackBar(failedText);
+      } else
         _selected[index] = null;
     }
 
@@ -66,22 +69,24 @@ class _HomePageState extends PageState<HomePage> {
   }
 
   void _logout() async {
-    if (mounted) showSnackBar(await appSate.net.logout() ? successfulText : failedText);
+    final successful = await appSate.net.logout();
+    if (mounted) showSnackBar(successful ? successfulText : failedText);
+    if (successful) _doClear();
+  }
+
+  void _doClear() {
+    for (var i = 0; i < _selected.length; i++)
+      _selected[i] = null;
+    _totalCost = 0;
     updateState();
   }
 
   void _clear() async {
     if (!await _checkAuthAnNotify()) return;
-    if (!await appSate.net.clearSelected()) {
+    if (!await appSate.net.clearSelected())
       if (mounted) showSnackBar(failedText);
-      return;
-    }
-
-    for (var i = 0; i < _selected.length; i++)
-      _selected[i] = null;
-    _totalCost = 0;
-
-    updateState();
+    else
+      _doClear();
   }
 
   Future<void> _fetchSelected() async {
