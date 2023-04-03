@@ -72,6 +72,10 @@ class _HomePageState extends PageState<HomePage> {
 
   void _clear() async {
     if (!await _checkAuthAnNotify()) return;
+    if (!await appSate.net.clearSelected()) {
+      if (mounted) showSnackBar(failedText);
+      return;
+    }
 
     for (var i = 0; i < _selected.length; i++)
       _selected[i] = null;
