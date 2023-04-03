@@ -8,7 +8,7 @@
 ```
 
 This is a mobile port of the [front-end](https://github.com/vadniks/ComputerComponentsWebApp2_front) 
-part of the whole web app. The mobile app's logic is written entirely in [Dart](https://dart.dev) 
+part of the whole web app. The mobile app's UI and logic are written entirely in [Dart](https://dart.dev) 
 using [Flutter](https://flutter.dev) - the `ULTIMATE` UI framework for any platform.
 
 App requires [Server](https://github.com/vadniks/ComputerComponentsWebApp2_back) in order to function properly.
