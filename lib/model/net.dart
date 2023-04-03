@@ -1,5 +1,6 @@
 
-import 'dart:convert';
+// ignore_for_file: curly_braces_in_flow_control_structures
+
 import 'dart:typed_data';
 import '../util.dart';
 import 'component.dart';
@@ -79,12 +80,18 @@ class Net {
 
   Future<List<Component>> fetchHistory() async { try {
     final response = await _dio.get('$baseUrl/history');
+    if (!response.successful) return [];
 
-    return !response.successful ? [] : [
-      for (final selected in (response.data as String).split(':'))
-        for (final String id in selected.split(','))
-          (await fetchComponent(int.tryParse(id)!))!
-    ];
+    fetchOrNull(int? id) async => id != null ? fetchComponent(id) : null;
+
+    final ordered = <Component>[];
+    for (final selected in (response.data as String?)?.split(':') ?? [])
+      for (final String id in selected.split(',')) {
+        final component = await fetchOrNull(int.tryParse(id));
+        if (component != null) ordered.add(component);
+      }
+
+    return ordered;
   } on DioError catch (_) { return []; } }
 
   Future<bool> clearHistory() async { try {
