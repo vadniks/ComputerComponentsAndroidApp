@@ -19,7 +19,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> implements AppState {
-  late final _net = Net(this);
+  final _net = Net();
 
   @override
   Net get net => _net;

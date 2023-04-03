@@ -1,22 +1,19 @@
 
+import 'dart:convert';
 import 'dart:typed_data';
 import '../util.dart';
 import 'component.dart';
 import 'package:flutter/material.dart';
 import '../consts.dart';
-import 'proxies.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 
 class Net {
-  final AppState appState;
   late final _dio = Dio()..interceptors.add(CookieManager(CookieJar())); // TODO: persist cookie
   static final _jsonResponseOptions = Options(responseType: ResponseType.json);
   static final _urlencodedContentOptions = Options(contentType: Headers.formUrlEncodedContentType);
   static final _jsonContentOptions = Options(contentType: Headers.jsonContentType);
-
-  Net(this.appState);
 
   Future<bool> get authorized async { try {
     return (await _dio.get('$baseUrl/authorizedU')).successful;
@@ -87,7 +84,7 @@ class Net {
     );
 
     return !response.successful ? [] :
-      [for (final Map<String, dynamic> i in response.data) Component.fromJson(i)];
+      [for (final String i in response.data) Component.fromJson(jsonDecode(i))]; // TODO
   } on DioError catch (_) { return []; } }
 
   Future<bool> clearHistory() async { try {

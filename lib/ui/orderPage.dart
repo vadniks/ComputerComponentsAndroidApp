@@ -1,4 +1,6 @@
 
+// ignore_for_file: curly_braces_in_flow_control_structures
+
 import 'package:flutter/material.dart';
 import '../model/component.dart';
 import '../model/proxies.dart';
@@ -17,6 +19,33 @@ class _OrderPageState extends PageState<OrderPage> {
   var _isFetchingOrders = false;
   final _ordered = <Component>[];
 
+  @override
+  void initState() {
+    super.initState();
+    _fetchHistory();
+  }
+
+  void _fetchHistory() async {
+    setState(() => _isFetchingOrders = true);
+
+    for (final i in await appSate.net.fetchHistory())
+      setState(() => _ordered.add(i));
+
+    setState(() => _isFetchingOrders = false);
+  }
+
+  void _clearHistory() async {
+    if (await appSate.net.clearHistory())
+      setState(() => _ordered.clear());
+    else if (mounted) showSnackBar(failedText);
+  }
+
+  void _submit() async => appSate.net
+    .submit([for (final i in _submitControllers) i.text])
+    .then((successful) {
+      if (mounted) showSnackBar(successful ? successfulText : failedText);
+    });
+
   Widget _makeItem(Component component) => ListTile(
     leading: FutureBuilder<Widget?>(
       future: appSate.net.fetchImage(component.image),
@@ -28,10 +57,6 @@ class _OrderPageState extends PageState<OrderPage> {
     ),
     trailing: Text(component.cost.withDollarSign),
   );
-
-  void _submit() async {
-
-  }
 
   @override
   Widget build(BuildContext context) => DefaultTabController(
@@ -55,7 +80,7 @@ class _OrderPageState extends PageState<OrderPage> {
                 style: TextStyle(fontSize: 18),
               ),
               makeTextField(
-                controller: _submitControllers[0], // TODO: clear history button
+                controller: _submitControllers[0],
                 hint: firstName
               ),
               makeTextField(
@@ -78,25 +103,22 @@ class _OrderPageState extends PageState<OrderPage> {
             ]
           )
         ))),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _ordered.isEmpty
-              ? const Expanded(child: Center(child: Text(
-                empty,
-                style: TextStyle(fontSize: 18),
-              )))
-              : Expanded(child: ListView.separated(
-                itemBuilder: (_, index) => _makeItem(_ordered[index]),
-                separatorBuilder: (_, __) => divider,
-                itemCount: _ordered.length
-              )),
-            if (_ordered.isNotEmpty) TextButton(
-              onPressed: () {},
-              child: const Text(clear)
-            )
-          ]
-        )
+        Column(children: [
+          if (_isFetchingOrders) const LinearProgressIndicator(),
+          if (_ordered.isEmpty) const Expanded(child: Center(child: Text(
+            empty,
+            style: TextStyle(fontSize: 18),
+          )))
+          else Expanded(child: ListView.separated(
+            itemBuilder: (_, index) => _makeItem(_ordered[index]),
+            separatorBuilder: (_, __) => divider,
+            itemCount: _ordered.length
+          )),
+          if (_ordered.isNotEmpty) TextButton(
+            onPressed: _clearHistory,
+            child: const Text(clear)
+          )
+        ])
       ])
     )
   );
