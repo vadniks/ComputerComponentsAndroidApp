@@ -19,6 +19,9 @@ abstract class PageState<T extends AbsPage> extends State<T> {
   Size get screenSize => MediaQuery.of(context).size;
 
   @protected
+  Orientation get orientation => MediaQuery.of(context).orientation;
+
+  @protected
   void updateState() => setState(() {});
 
   @protected

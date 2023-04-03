@@ -15,6 +15,8 @@ class _LoginPageState extends PageState<LoginPage> {
   final _loginController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  bool get _isPortrait => orientation == Orientation.portrait;
+
   void _proceed() async {
     final successful = await appSate.net.login(
       _loginController.text,
@@ -32,11 +34,11 @@ class _LoginPageState extends PageState<LoginPage> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          svgImage(
+          if (_isPortrait) svgImage(
             appIcon,
-            width: screenSize.width * 0.35
+            width: screenSize.width * 0.25
           ),
-          makeGreeting(appSate.net.fetchName()),
+          if (_isPortrait) makeGreeting(appSate.net.fetchName()),
           const SizedBox(height: 50),
           makeTextField(
             controller: _loginController,
@@ -49,6 +51,7 @@ class _LoginPageState extends PageState<LoginPage> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.min,
             children: [
               TextButton(
                 onPressed: _proceed,
