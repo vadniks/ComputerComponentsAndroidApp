@@ -78,13 +78,13 @@ class Net {
   }
 
   Future<List<Component>> fetchHistory() async { try {
-    final response = await _dio.get(
-      '$baseUrl/history',
-      options: _jsonResponseOptions
-    );
+    final response = await _dio.get('$baseUrl/history');
 
-    return !response.successful ? [] :
-      [for (final String i in response.data) Component.fromJson(jsonDecode(i))]; // TODO
+    return !response.successful ? [] : [
+      for (final selected in (response.data as String).split(':'))
+        for (final String id in selected.split(','))
+          (await fetchComponent(int.tryParse(id)!))!
+    ];
   } on DioError catch (_) { return []; } }
 
   Future<bool> clearHistory() async { try {
