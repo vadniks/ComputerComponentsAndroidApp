@@ -28,6 +28,7 @@ class _OrderPageState extends PageState<OrderPage> {
   void _fetchHistory() async {
     setState(() => _isFetchingOrders = true);
 
+    _ordered.clear();
     for (final i in await appSate.net.fetchHistory())
       setState(() => _ordered.add(i));
 
@@ -44,6 +45,7 @@ class _OrderPageState extends PageState<OrderPage> {
     .submit([for (final i in _submitControllers) i.text])
     .then((successful) {
       if (mounted) showSnackBar(successful ? successfulText : failedText);
+      _fetchHistory(); // TODO: fetch history when user navigates to the history tab
     });
 
   Widget _makeItem(Component component) => ListTile(
