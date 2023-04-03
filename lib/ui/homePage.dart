@@ -75,7 +75,6 @@ class _HomePageState extends PageState<HomePage> {
   }
 
   void _doClear() {
-    debugPrint('rvderfv'); // TODO
     for (var i = 0; i < _selected.length; i++)
       _selected[i] = null;
     _totalCost = 0;
@@ -85,10 +84,7 @@ class _HomePageState extends PageState<HomePage> {
   void _clear() async {
     if (!await _checkAuthAnNotify()) return;
 
-    debugPrint('vbftbgrfd');
-
     if (!await appSate.net.clearSelected()) {
-      debugPrint('gbhgfbhtr');
       if (mounted) showSnackBar(failedText);
     } else
       _doClear();
