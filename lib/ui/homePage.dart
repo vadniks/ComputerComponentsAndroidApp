@@ -1,5 +1,5 @@
 
-// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: curly_braces_in_flow_control_structures, avoid_function_literals_in_foreach_calls
 
 import 'package:flutter/material.dart';
 import '../consts.dart';
@@ -26,6 +26,8 @@ class _HomePageState extends PageState<HomePage> {
     return true;
   }
 
+  void _calcCost() => _selected.forEach((i) => _totalCost += i?.cost ?? 0);
+
   void _onItemClick(int index) async {
     if (!await _checkAuthAnNotify()) return;
 
@@ -37,7 +39,7 @@ class _HomePageState extends PageState<HomePage> {
 
     _selected[index] = chosen ? component : null;
     _totalCost = 0;
-    for (final i in _selected) _totalCost += i?.cost ?? 0;
+    _calcCost();
 
     if (mounted) updateState();
   }
@@ -84,6 +86,22 @@ class _HomePageState extends PageState<HomePage> {
     updateState();
   }
 
+  Future<void> _fetchSelected() async {
+    var index = 0;
+    for (final component in await appSate.net.fetchSelected()) {
+      _selected[index] = component;
+      index++;
+    }
+    _calcCost();
+    updateState();
+  }
+
+  void _onReturnFromLoginPage() {
+    updateState();
+    appSate.net.authorized.then((authorized)
+    { if (authorized) _fetchSelected(); });
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -104,7 +122,7 @@ class _HomePageState extends PageState<HomePage> {
             return IconButton(
               onPressed: () => authorized
                 ? _logout()
-                : navigator.pushNamed(routeLogin).then((_) => updateState()),
+                : navigator.pushNamed(routeLogin).then((_) => _onReturnFromLoginPage()),
               icon: Icon(authorized ? Icons.logout : Icons.login)
             );
           }

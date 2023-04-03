@@ -8,7 +8,6 @@ import 'proxies.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:cookie_jar/cookie_jar.dart';
-import 'user.dart';
 
 class Net {
   final AppState appState;
@@ -48,8 +47,8 @@ class Net {
     return await _dio.post(
       '$baseUrl/login',
       data: {
-        User.nameC : login,
-        User.passwordC : password
+        'name': login,
+        'password': password
       },
       options: _urlencodedContentOptions
     ).then((response) => response.successful);
@@ -106,12 +105,12 @@ class Net {
     );
   } on DioError catch (_) { return null; } }
 
-  Future<List<Component>> fetchSelected() async { try {
+  Future<List<Component?>> fetchSelected() async { try {
     final response = await _dio.get('$baseUrl/selected');
 
     return !response.successful ? [] : [
       for (final String i in (response.data as String).split(','))
-        (await fetchComponent(int.tryParse(i)!))!
+        i == nullString ? null : (await fetchComponent(int.tryParse(i)!))!
     ];
   } on DioError catch (_) { return []; } }
 }
