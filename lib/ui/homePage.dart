@@ -43,7 +43,7 @@ class _HomePageState extends PageState<HomePage> {
         else if (mounted)
           showSnackBar(failedText);
       } else
-        _selected[index] = null;
+        _selected[index] = null; // TODO: add 'deselect' request to the server and use it here
     }
 
     _totalCost = 0;

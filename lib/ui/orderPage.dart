@@ -78,10 +78,19 @@ class _OrderPageState extends PageState<OrderPage> {
             ]
           )
         ))),
-        ListView.separated(
-          itemBuilder: (_, index) => _makeItem(_ordered[index]),
-          separatorBuilder: (_, __) => divider,
-          itemCount: _ordered.length
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _ordered.isEmpty ? const Expanded(child: Center(child: Text(empty))) : Expanded(child: ListView.separated(
+              itemBuilder: (_, index) => _makeItem(_ordered[index]),
+              separatorBuilder: (_, __) => divider,
+              itemCount: _ordered.length
+            )),
+            TextButton(
+              onPressed: () {},
+              child: const Text(clear)
+            )
+          ]
         )
       ])
     )
