@@ -81,12 +81,17 @@ class _OrderPageState extends PageState<OrderPage> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _ordered.isEmpty ? const Expanded(child: Center(child: Text(empty))) : Expanded(child: ListView.separated(
-              itemBuilder: (_, index) => _makeItem(_ordered[index]),
-              separatorBuilder: (_, __) => divider,
-              itemCount: _ordered.length
-            )),
-            TextButton(
+            _ordered.isEmpty
+              ? const Expanded(child: Center(child: Text(
+                empty,
+                style: TextStyle(fontSize: 18),
+              )))
+              : Expanded(child: ListView.separated(
+                itemBuilder: (_, index) => _makeItem(_ordered[index]),
+                separatorBuilder: (_, __) => divider,
+                itemCount: _ordered.length
+              )),
+            if (_ordered.isNotEmpty) TextButton(
               onPressed: () {},
               child: const Text(clear)
             )
